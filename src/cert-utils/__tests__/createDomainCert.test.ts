@@ -3,28 +3,13 @@ import { createDomainCert } from '../createDomainCert';
 
 describe('createDomainCert tests', () => {
   test('create success', () => {
-    const rootCA = createCACert({
-      name: 'YouxianProxy',
-      country: 'CN',
-      stateOrProvince: 'ZJ',
-      locality: 'HZ',
-      organization: 'youxian.org',
-      organizationalUnit: 'youxian-proxy',
-    });
-
+    const rootCA = createCACert({ commonName: 'YouxianProxy' });
     const domainCert = createDomainCert(rootCA, 'localhost');
     expect(domainCert).toBeDefined();
   });
 
   test('domainId overflow', () => {
-    const rootCA = createCACert({
-      name: 'YouxianProxy',
-      country: 'CN',
-      stateOrProvince: 'ZJ',
-      locality: 'HZ',
-      organization: 'youxian.org',
-      organizationalUnit: 'youxian-proxy',
-    });
+    const rootCA = createCACert({ commonName: 'YouxianProxy' });
 
     const createCert = () => createDomainCert(rootCA, 'localhost');
     for (let i = 0; i < 100; i++) {

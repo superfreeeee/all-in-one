@@ -3,12 +3,20 @@ import { createCert } from './createCert';
 import type { CertificateInfo } from './types';
 
 type CreateCACertOptions = {
-  name: string;
-  country: string;
-  stateOrProvince: string;
-  locality: string;
-  organization: string;
-  organizationalUnit: string;
+  commonName: string;
+  countryName?: string;
+  stateOrProvinceName?: string;
+  localityName?: string;
+  organizationName?: string;
+  organizationalUnit?: string;
+};
+
+const DEFAULT_OPTIONS: Required<Omit<CreateCACertOptions, 'commonName'>> = {
+  countryName: 'CN',
+  stateOrProvinceName: 'ZJ',
+  localityName: 'HZ',
+  organizationName: 'youxian.org',
+  organizationalUnit: 'ssl.youxian.org',
 };
 
 /**
@@ -17,43 +25,30 @@ type CreateCACertOptions = {
  */
 export const createCACert = (options: CreateCACertOptions): CertificateInfo => {
   const keys = pki.rsa.generateKeyPair(2048);
-
   const cert = createCert(keys.publicKey);
+  // set attrs
+  const normalizedOptions = { ...DEFAULT_OPTIONS, ...options };
   const attrs: pki.CertificateField[] = [
-    {
-      // CA name
-      name: 'commonName',
-      value: options.name,
-    },
-    {
-      // cert country
-      name: 'countryName',
-      value: options.country,
-    },
-    {
-      shortName: 'ST', // stateOrProvinceName
-      value: options.stateOrProvince,
-    },
-    {
-      name: 'localityName',
-      value: options.locality,
-    },
-    {
-      name: 'organizationName',
-      value: options.organization,
-    },
-    {
-      shortName: 'OU',
-      value: options.organizationalUnit,
-    },
+    // CA name
+    { name: 'commonName', value: normalizedOptions.commonName },
+    // cert country
+    { name: 'countryName', value: normalizedOptions.countryName },
+    // stateOrProvinceName
+    { shortName: 'ST', value: normalizedOptions.stateOrProvinceName },
+    // localityName
+    { name: 'localityName', value: normalizedOptions.localityName },
+    // organizationName
+    { name: 'organizationName', value: normalizedOptions.organizationName },
+    // organizationalUnit
+    { shortName: 'OU', value: normalizedOptions.organizationalUnit },
   ];
   cert.setSubject(attrs);
   cert.setIssuer(attrs);
+
+  // set extensions
   const exts = [
-    {
-      name: 'basicConstraints',
-      cA: true,
-    },
+    // CA constraints
+    { name: 'basicConstraints', cA: true },
     {
       name: 'keyUsage',
       keyCertSign: true,
@@ -83,10 +78,8 @@ export const createCACert = (options: CreateCACertOptions): CertificateInfo => {
   ];
   cert.setExtensions(exts);
 
+  // sign
   cert.sign(keys.privateKey, md.sha256.create());
 
-  return {
-    cert: cert,
-    key: keys.privateKey,
-  };
+  return { cert, key: keys.privateKey };
 };

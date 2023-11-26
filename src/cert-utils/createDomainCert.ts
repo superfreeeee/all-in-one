@@ -57,14 +57,8 @@ export const createDomainCert = (rootCA: CertificateInfo, hostname: string): Cer
       name: 'subjectAltName',
       altNames: [
         net.isIP(hostname)
-          ? {
-              type: 7,
-              ip: hostname,
-            }
-          : {
-              type: 2,
-              value: hostname,
-            },
+          ? { type: 7, ip: hostname } // ip
+          : { type: 2, value: hostname }, // domain
       ],
     },
   ]);

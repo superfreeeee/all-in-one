@@ -4,14 +4,7 @@ import { certificateToPem } from '../pemUtils';
 import { validateCert } from '../validateCert';
 
 test('validateCert test', () => {
-  const rootCA = createCACert({
-    name: 'YouxianProxy',
-    country: 'CN',
-    stateOrProvince: 'ZJ',
-    locality: 'HZ',
-    organization: 'youxian.org',
-    organizationalUnit: 'youxian-proxy',
-  });
+  const rootCA = createCACert({ commonName: 'YouxianProxy' });
   const domainCert = createDomainCert(rootCA, 'localhost');
   const domainCertPem = certificateToPem(domainCert);
 

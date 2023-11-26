@@ -1,93 +1,108 @@
 # Npm Packages
 
-| Package Name ; repository / homepage                                                             | Usage             | Use Level            | Category         | Tags            |
-| ------------------------------------------------------------------------------------------------ | ----------------- | -------------------- | ---------------- | --------------- |
-| react                                 <br/> https://github.com/facebook/react/                   |                   | production           | ui-framework     | react           |
-| react-dom                             <br/> https://github.com/facebook/react/                   |                   | production           | ui-framework     | react           |
-| vue                                   <br/>                                                      |                   | production           | ui-framework     |                 |
-| angular                               <br/>                                                      |                   | production           | ui-framework     |                 |
-| svelte                                <br/> https://github.com/sveltejs/svelte                   |                   | production           | ui-framework     |                 |
-| solid                                 <br/>                                                      |                   | production           | ui-framework     |                 |
-|                                                                                                  |                   |                      |                  |                 |
-| @babel/core                           <br/> https://github.com/babel/babel                       |                   | production           | transpiler       | babel           |
-| @babel/cli                            <br/> https://github.com/babel/babel                       |                   | production           | transpiler       | babel           |
-| @babel/node                           <br/> https://github.com/babel/babel                       |                   | production           | transpiler       | babel           |
-| @babel/register                       <br/> https://github.com/babel/babel                       |                   | production           | transpiler       | babel           |
-| @babel/runtime                        <br/> https://github.com/babel/babel                       |                   | production           | transpiler       | babel           |
-| @babel/preset-env                     <br/> https://github.com/babel/babel                       |                   | production           | transpiler       | babel           |
-| @babel/preset-react                   <br/> https://github.com/babel/babel                       |                   | production           | transpiler       | babel           |
-| @babel/preset-typescript              <br/> https://github.com/babel/babel                       |                   | production           | transpiler       | babel           |
-| @babel/parser                         <br/> https://github.com/babel/babel                       |                   | production, learning | transpiler       | babel           |
-| @babel/traverse                       <br/> https://github.com/babel/babel                       |                   | production, learning | transpiler       | babel           |
-| @swc/core                             <br/> https://github.com/swc-project/swc                   |                   | production           | transpiler       | swc             |
-| @swc/cli                              <br/> https://github.com/swc-project/swc                   |                   | production           | transpiler       | swc             |
-| acorn                                 <br/> https://github.com/acornjs/acorn                     |                   | production           | transpiler       |                 |
-| typescript                            <br/>                                                      |                   | production           | transpiler       | typescript      |
-| ts-node                               <br/>                                                      |                   | production           | transpiler       | typescript      |
-|                                                                                                  |                   |                      |                  |                 |
-| webpack                               <br/> https://github.com/webpack/webpack                   |                   | production           | bundler          | webpack         |
-| webpack-cli                           <br/>                                                      |                   | production           | bundler          | webpack         |
-| webpack-dev-server                    <br/>                                                      |                   | production           | bundler          | webpack         |
-| style-loader                          <br/>                                                      |                   | production           | bundler          | webpack, loader |
-| css-loader                            <br/>                                                      |                   | production           | bundler          | webpack, loader |
-| less-loader                           <br/>                                                      |                   | production           | bundler          | webpack, loader |
-| sass-loader                           <br/>                                                      |                   | production           | bundler          | webpack, loader |
-| html-webpack-plugin                   <br/>                                                      |                   | production           | bundler          | webpack, plugin |
-| extract-css-plugin                    <br/>                                                      |                   | production           | bundler          | webpack, plugin |
-| rollup                                <br/> https://github.com/rollup/rollup                     |                   | production           | bundler          |                 |
-| esbuild                               <br/> https://github.com/evanw/esbuild                     |                   | production           | bundler          |                 |
-| vite                                  <br/> https://github.com/vitejs/vite                       |                   | production           | bundler          | vite            |
-| @vitejs/plugin-react-swc              <br/>                                                      |                   | production           | bundler          | vite, plugin    |
-| parcel                                <br/>                                                      |                   | production           | bundler          |                 |
-| snowpack                              <br/>                                                      |                   | learning             | bundler          |                 |
-| gulp                                  <br/> https://github.com/gulpjs/gulp                       |                   | production           | bundler          |                 |
-| grunt                                 <br/>                                                      |                   | production           | bundler          |                 |
-|                                                                                                  |                   |                      |                  |                 |
-| redux                                 <br/> https://github.com/reduxjs/redux                     |                   | production           | state-management | redux           |
-| redux-toolkit                         <br/>                                                      |                   | production           | state-management | redux           |
-| recoil                                <br/>                                                      |                   | production           | state-management |                 |
-| jotai                                 <br/> https://github.com/pmndrs/jotai                      |                   | production           | state-management |                 |
-| zustand                               <br/>                                                      |                   | production           | state-management |                 |
-| valtio                                <br/>                                                      |                   | production           | state-management |                 |
-| mobx                                  <br/>                                                      |                   | production           | state-management |                 |
-|                                                                                                  |                   |                      |                  |                 |
-| axios                                 <br/> https://github.com/axios/axios                       |                   | production           | http-request     |                 |
-| urllib                                <br/>                                                      |                   | production           | http-request     |                 |
-| alova                                 <br/> https://github.com/alovajs/alova                     |                   | production           | http-request     |                 |
-| react-query                           <br/>                                                      |                   | production           | http-request     | react           |
-| swr                                   <br/> https://github.com/vercel/swr                        |                   | production           | http-request     | react           |
-|                                                                                                  |                   |                      |                  |                 |
-| anyproxy                              <br/> https://github.com/alibaba/anyproxy                  |                   | production           | http-proxy       |                 |
-| whistle                               <br/> https://github.com/avwo/whistle                      |                   | production           | http-proxy       |                 |
-|                                                                                                  |                   |                      |                  |                 |
-| jest                                  <br/> https://github.com/jestjs/jest                       |                   | production           | test-framework   |                 |
-| mocha                                 <br/>                                                      |                   | production           | test-framework   |                 |
-| karma                                 <br/>                                                      |                   | production           | test-framework   |                 |
-|                                                                                                  |                   |                      |                  |                 |
-| eslint                                <br/> https://github.com/eslint/eslint                     |                   | production           | lint             | eslint          |
-| @typescript-eslint/eslint-plugin      <br/>                                                      |                   | production           | lint             | eslint, plugin  |
-| @typescript-eslint/parser             <br/>                                                      |                   | production           | lint             | eslint, plugin  |
-| stylelint                             <br/> https://github.com/stylelint/stylelint               |                   | production           | lint             |                 |
-| commitlint                            <br/> https://github.com/conventional-changelog/commitlint |                   | production           | lint             |                 |
-| lint-staged                           <br/>                                                      |                   | production           | git-helper       |                 |
-| husky                                 <br/> https://github.com/typicode/husky                    | git hooks wrapper | production           | git-helper       |                 |
-|                                                                                                  |                   |                      |                  |                 |
-| lodash, lodash-es                     <br/> https://github.com/lodash/lodash                     |                   | production           |                  | basic-tools     |
-| rxjs                                  <br/> https://github.com/ReactiveX/rxjs                    |                   | production           |                  | async-tools     |
-| moment                                <br/> https://github.com/moment/moment                     |                   | production           |                  | time-utils      |
-| dayjs                                 <br/> https://github.com/iamkun/dayjs                      |                   | production           |                  | time-utils      |
-| ylru                                  <br/>                                                      |                   | production           |                  | cache           |
-| classnames                            <br/> https://github.com/JedWatson/classnames              |                   | production           | web-dev          |                 |
-| clsx                                  <br/> https://github.com/lukeed/clsx                       |                   | production           | web-dev          |                 |
-| ahooks                                <br/> https://github.com/alibaba/hooks                     |                   | production           | react-hooks      |                 |
-| colors                                <br/> https://github.com/Marak/colors.js                   |                   | production           | color-utils      |                 |
-| chalk                                 <br/> https://github.com/chalk/chalk                       |                   | production           | color-utils      |                 |
-| detect-port                           <br/>                                                      |                   | production           |                  |                 |
-| react-window                          <br/>                                                      |                   | production           |                  |                 |
-| react-virtualized                     <br/>                                                      |                   | production           |                  |                 |
-| sass                                  <br/>                                                      |                   | production           |                  |                 |
-| htmx                                  <br/>                                                      | Html enhancer     | production           |                  |                 |
-| prettier                              <br/> https://github.com/prettier/prettier                 |                   | production           | formatter        |                 |
-| fs-extra                              <br/>                                                      |                   | production           | node-extension   |                 |
-| semver                                <br/>                                                      | Version utils     | production           |                  |                 |
-| rimraf                                <br/>                                                      | `rm -rf` utils    | production           |                  |                 |
+| Package Name ; repository / homepage                                                             | Category         | Usage                         | Use Level            | Tags            |
+| ------------------------------------------------------------------------------------------------ | ---------------- | ----------------------------- | -------------------- | --------------- |
+| react                                 <br/> https://github.com/facebook/react/                   | ui-framework     |                               | production           | react           |
+| react-dom                             <br/> https://github.com/facebook/react/                   | ui-framework     |                               | production           | react           |
+| vue                                   <br/>                                                      | ui-framework     |                               | production           |                 |
+| angular                               <br/>                                                      | ui-framework     |                               | production           |                 |
+| svelte                                <br/> https://github.com/sveltejs/svelte                   | ui-framework     |                               | production           |                 |
+| solid                                 <br/>                                                      | ui-framework     |                               | production           |                 |
+|                                                                                                  |                  |                               |                      |                 |
+| @babel/core                           <br/> https://github.com/babel/babel                       | transpiler       |                               | production           | babel           |
+| @babel/cli                            <br/> https://github.com/babel/babel                       | transpiler       |                               | production           | babel           |
+| @babel/node                           <br/> https://github.com/babel/babel                       | transpiler       |                               | production           | babel           |
+| @babel/register                       <br/> https://github.com/babel/babel                       | transpiler       |                               | production           | babel           |
+| @babel/runtime                        <br/> https://github.com/babel/babel                       | transpiler       |                               | production           | babel           |
+| @babel/preset-env                     <br/> https://github.com/babel/babel                       | transpiler       |                               | production           | babel           |
+| @babel/preset-react                   <br/> https://github.com/babel/babel                       | transpiler       |                               | production           | babel           |
+| @babel/preset-typescript              <br/> https://github.com/babel/babel                       | transpiler       |                               | production           | babel           |
+| @babel/parser                         <br/> https://github.com/babel/babel                       | transpiler       |                               | production, learning | babel           |
+| @babel/traverse                       <br/> https://github.com/babel/babel                       | transpiler       |                               | production, learning | babel           |
+| @swc/core                             <br/> https://github.com/swc-project/swc                   | transpiler       |                               | production           | swc             |
+| @swc/cli                              <br/> https://github.com/swc-project/swc                   | transpiler       |                               | production           | swc             |
+| acorn                                 <br/> https://github.com/acornjs/acorn                     | transpiler       |                               | production           |                 |
+| typescript                            <br/>                                                      | transpiler       |                               | production           | typescript      |
+| ts-node                               <br/>                                                      | transpiler       |                               | production           | typescript      |
+|                                                                                                  |                  |                               |                      |                 |
+| webpack                               <br/> https://github.com/webpack/webpack                   | bundler          |                               | production           | webpack         |
+| webpack-cli                           <br/>                                                      | bundler          |                               | production           | webpack         |
+| webpack-dev-server                    <br/>                                                      | bundler          |                               | production           | webpack         |
+| style-loader                          <br/>                                                      | bundler          |                               | production           | webpack, loader |
+| css-loader                            <br/>                                                      | bundler          |                               | production           | webpack, loader |
+| less-loader                           <br/>                                                      | bundler          |                               | production           | webpack, loader |
+| sass-loader                           <br/>                                                      | bundler          |                               | production           | webpack, loader |
+| html-webpack-plugin                   <br/>                                                      | bundler          |                               | production           | webpack, plugin |
+| extract-css-plugin                    <br/>                                                      | bundler          |                               | production           | webpack, plugin |
+| rollup                                <br/> https://github.com/rollup/rollup                     | bundler          |                               | production           |                 |
+| esbuild                               <br/> https://github.com/evanw/esbuild                     | bundler          |                               | production           |                 |
+| vite                                  <br/> https://github.com/vitejs/vite                       | bundler          |                               | production           | vite            |
+| @vitejs/plugin-react-swc              <br/>                                                      | bundler          |                               | production           | vite, plugin    |
+| parcel                                <br/>                                                      | bundler          |                               | production           |                 |
+| snowpack                              <br/>                                                      | bundler          |                               | learning             |                 |
+| gulp                                  <br/> https://github.com/gulpjs/gulp                       | bundler          |                               | production           | gulp            |
+| gulp-json-editor                      <br/> https://github.com/gulp-community/gulp-json-editor   | bundler          |                               | production           | gulp, plugin    |
+| grunt                                 <br/>                                                      | bundler          |                               | production           |                 |
+|                                                                                                  |                  |                               |                      |                 |
+| redux                                 <br/> https://github.com/reduxjs/redux                     | state-management |                               | production           | redux           |
+| redux-toolkit                         <br/>                                                      | state-management |                               | production           | redux           |
+| recoil                                <br/>                                                      | state-management |                               | production           |                 |
+| jotai                                 <br/> https://github.com/pmndrs/jotai                      | state-management |                               | production           |                 |
+| zustand                               <br/>                                                      | state-management |                               | production           |                 |
+| valtio                                <br/>                                                      | state-management |                               | production           |                 |
+| mobx                                  <br/>                                                      | state-management |                               | production           |                 |
+|                                                                                                  |                  |                               |                      |                 |
+| axios                                 <br/> https://github.com/axios/axios                       | http-request     |                               | production           |                 |
+| urllib                                <br/>                                                      | http-request     |                               | production           |                 |
+| alova                                 <br/> https://github.com/alovajs/alova                     | http-request     |                               | production           |                 |
+| react-query                           <br/>                                                      | http-request     |                               | production           | react           |
+| swr                                   <br/> https://github.com/vercel/swr                        | http-request     |                               | production           | react           |
+|                                                                                                  |                  |                               |                      |                 |
+| anyproxy                              <br/> https://github.com/alibaba/anyproxy                  | http-proxy       |                               | production           |                 |
+| whistle                               <br/> https://github.com/avwo/whistle                      | http-proxy       |                               | production           |                 |
+|                                                                                                  |                  |                               |                      |                 |
+| jest                                  <br/> https://github.com/jestjs/jest                       | test-framework   |                               | production           |                 |
+| mocha                                 <br/>                                                      | test-framework   |                               | production           |                 |
+| karma                                 <br/>                                                      | test-framework   |                               | production           |                 |
+|                                                                                                  |                  |                               |                      |                 |
+| eslint                                <br/> https://github.com/eslint/eslint                     | lint             |                               | production           | eslint          |
+| @typescript-eslint/eslint-plugin      <br/>                                                      | lint             |                               | production           | eslint, plugin  |
+| @typescript-eslint/parser             <br/>                                                      | lint             |                               | production           | eslint, plugin  |
+| stylelint                             <br/> https://github.com/stylelint/stylelint               | lint             |                               | production           |                 |
+| commitlint                            <br/> https://github.com/conventional-changelog/commitlint | lint             |                               | production           |                 |
+| lint-staged                           <br/>                                                      | git-helper       |                               | production           |                 |
+| husky                                 <br/> https://github.com/typicode/husky                    | git-helper       | git hooks wrapper             | production           |                 |
+|                                                                                                  |                  |                               |                      |                 |
+| express                               <br/> https://github.com/expressjs/express                 | be-framework     |                               |                      |                 |
+| koa                                   <br/> https://github.com/koajs/koa                         | be-framework     |                               |                      |                 |
+| hapi                                  <br/>                                                      | be-framework     |                               |                      |                 |
+| nest                                  <br/>                                                      | be-framework     |                               |                      |                 |
+| midway                                <br/> https://github.com/midwayjs/midway                   | be-framework     |                               |                      |                 |
+|                                                                                                  |                  |                               |                      |                 |
+| lodash, lodash-es                     <br/> https://github.com/lodash/lodash                     |                  |                               | production           | basic-tools     |
+| rxjs                                  <br/> https://github.com/ReactiveX/rxjs                    |                  |                               | production           | async-tools     |
+| moment                                <br/> https://github.com/moment/moment                     |                  |                               | production           | time-utils      |
+| dayjs                                 <br/> https://github.com/iamkun/dayjs                      |                  |                               | production           | time-utils      |
+| ylru                                  <br/> https://github.com/node-modules/ylru                 |                  |                               | production           | cache           |
+| classnames                            <br/> https://github.com/JedWatson/classnames              | web-dev          |                               | production           |                 |
+| clsx                                  <br/> https://github.com/lukeed/clsx                       | web-dev          |                               | production           |                 |
+| ahooks                                <br/> https://github.com/alibaba/hooks                     | react-hooks      |                               | production           |                 |
+| colors                                <br/> https://github.com/Marak/colors.js                   | color-utils      |                               | production           |                 |
+| chalk                                 <br/> https://github.com/chalk/chalk                       | color-utils      |                               | production           |                 |
+| detect-port                           <br/>                                                      |                  |                               | production           |                 |
+| react-window                          <br/>                                                      |                  |                               | production           |                 |
+| react-virtualized                     <br/>                                                      |                  |                               | production           |                 |
+| sass                                  <br/>                                                      |                  |                               | production           |                 |
+| htmx                                  <br/>                                                      |                  | Html enhancer                 | -                    |                 |
+| prettier                              <br/> https://github.com/prettier/prettier                 | formatter        |                               | production           |                 |
+| fs-extra                              <br/>                                                      | node-extension   |                               | production           |                 |
+| semver                                <br/>                                                      |                  | Version utils                 | production           |                 |
+| rimraf                                <br/>                                                      |                  | `rm -rf` utils                | production           |                 |
+| http-proxy-middleware                 <br/> https://github.com/chimurai/http-proxy-middleware    |                  |                               | production           |                 |
+| node-http-proxy                       <br/> https://github.com/http-party/node-http-proxy        |                  |                               | production           |                 |
+| node-easy-cert                        <br/> https://github.com/ottomao/node-easy-cert            |                  | Self-create https certificate | production           |                 |
+| nodemon                               <br/>                                                      |                  |                               | production           |                 |
+| hagent                                <br/> https://github.com/avwo/hagent                       |                  | Http agent                    | -                    |                 |
+|                                                                                                  |                  |                               |                      |                 |
+| -                                     <br/>                                                      |                  |                               | production           |                 |
+|                                                                                                  |                  |                               |                      |                 |

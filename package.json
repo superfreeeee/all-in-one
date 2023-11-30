@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --maxWorkers=20%",
-    "test:coverage": "jest --coverage --maxWorkers=20%"
+    "test": "jest -w 7",
+    "test:coverage": "jest --coverage -w 7"
   },
   "keywords": [],
   "author": "",

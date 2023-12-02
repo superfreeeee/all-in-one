@@ -28,11 +28,11 @@
 | webpack                               <br/> https://github.com/webpack/webpack                   | bundler          |                                | production           | webpack         |
 | webpack-cli                           <br/>                                                      | bundler          |                                | production           | webpack         |
 | webpack-dev-server                    <br/>                                                      | bundler          |                                | production           | webpack         |
-| style-loader                          <br/>                                                      | bundler          |                                | production           | webpack, loader |
-| css-loader                            <br/>                                                      | bundler          |                                | production           | webpack, loader |
+| style-loader                          <br/> https://github.com/webpack-contrib/style-loader      | bundler          |                                | production           | webpack, loader |
+| css-loader                            <br/> https://github.com/webpack-contrib/css-loader        | bundler          |                                | production           | webpack, loader |
 | less-loader                           <br/>                                                      | bundler          |                                | production           | webpack, loader |
 | sass-loader                           <br/>                                                      | bundler          |                                | production           | webpack, loader |
-| html-webpack-plugin                   <br/>                                                      | bundler          |                                | production           | webpack, plugin |
+| html-webpack-plugin                   <br/> https://github.com/jantimon/html-webpack-plugin      | bundler          |                                | production           | webpack, plugin |
 | extract-css-plugin                    <br/>                                                      | bundler          |                                | production           | webpack, plugin |
 | rollup                                <br/> https://github.com/rollup/rollup                     | bundler          |                                | production           |                 |
 | esbuild                               <br/> https://github.com/evanw/esbuild                     | bundler          |                                | production           |                 |

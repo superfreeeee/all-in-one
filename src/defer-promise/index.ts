@@ -1,1 +1,5 @@
-export { defer, type DeferOptions, type Deferred } from './defer';
+export {
+  defer, //
+  type DeferOptions,
+  type Deferred,
+} from './defer';

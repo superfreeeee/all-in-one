@@ -1,18 +1,18 @@
-export interface Deferred<T, E extends Error = Error> {
-  promise: Promise<T>;
+export type Deferred<T, E extends Error = Error> = Promise<T> & {
   resolve: (res: T) => void;
   reject: (err: E) => void;
-}
+  promise: Promise<T>;
+};
 
-export interface DeferOptions {
+export type DeferOptions = {
   timeout?: number;
-}
+};
 
-export const defer = <T, E extends Error = Error>({ timeout }: DeferOptions = {}) => {
-  const deferred = {} as Deferred<T, E>;
-  deferred.promise = new Promise<T>((resolve, reject) => {
-    deferred.resolve = resolve;
-    deferred.reject = reject;
+export const defer = <T, E extends Error = Error>({ timeout }: DeferOptions = {}): Deferred<T, E> => {
+  let _resolve, _reject;
+  const deferred = new Promise<T>((resolve, reject) => {
+    _resolve = resolve;
+    _reject = reject;
 
     if (timeout != null) {
       setTimeout(() => {
@@ -20,5 +20,9 @@ export const defer = <T, E extends Error = Error>({ timeout }: DeferOptions = {}
       }, timeout);
     }
   });
-  return deferred;
+  (deferred as Deferred<T, E>).resolve = _resolve;
+  (deferred as Deferred<T, E>).reject = _reject;
+  (deferred as Deferred<T, E>).promise = deferred;
+
+  return deferred as Deferred<T, E>;
 };

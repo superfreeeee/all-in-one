@@ -80,34 +80,38 @@
 | nest                                  <br/>                                                      | be-framework     |                                |                      |                 |
 | midway                                <br/> https://github.com/midwayjs/midway                   | be-framework     |                                |                      |                 |
 |                                                                                                  |                  |                                |                      |                 |
-| lodash, lodash-es                     <br/> https://github.com/lodash/lodash                     |                  |                                | production           | basic-tools     |
-| rxjs                                  <br/> https://github.com/ReactiveX/rxjs                    |                  |                                | production           | async-tools     |
-| moment                                <br/> https://github.com/moment/moment                     |                  |                                | production           | time-utils      |
-| dayjs                                 <br/> https://github.com/iamkun/dayjs                      |                  |                                | production           | time-utils      |
-| ylru                                  <br/> https://github.com/node-modules/ylru                 |                  |                                | production           | cache           |
+| less                                  <br/>                                                      | css              | High level css                 | production           |                 |
+| sass                                  <br/>                                                      | css              | High level css                 | production           |                 |
+| tailwind                              <br/>                                                      | css              | Atomic css                     | production           |                 |
+|                                                                                                  |                  |                                |                      |                 |
 | classnames                            <br/> https://github.com/JedWatson/classnames              | web-dev          |                                | production           |                 |
 | clsx                                  <br/> https://github.com/lukeed/clsx                       | web-dev          |                                | production           |                 |
-| ahooks                                <br/> https://github.com/alibaba/hooks                     | react-hooks      |                                | production           |                 |
+| react-window                          <br/>                                                      | web-dev          |                                | production           |                 |
+| react-virtualized                     <br/>                                                      | web-dev          |                                | production           |                 |
+| rimraf                                <br/>                                                      | node-dev         | `rm -rf` utils                 | production           | linux           |
+| nodemon                               <br/>                                                      | node-dev         |                                | production           | dev, node       |
+| benchmark                             <br/> https://github.com/bestiejs/benchmark.js             | node-dev         | Benchmark packages performance | production           | test            |
+| schema-utils                          <br/>                                                      | node-dev         | Schema validation              | production           | schema          |
+| detect-port                           <br/>                                                      | node-dev         |                                | production           |                 |
+| moment                                <br/> https://github.com/moment/moment                     | time-utils       |                                | production           |                 |
+| dayjs                                 <br/> https://github.com/iamkun/dayjs                      | time-utils       |                                | production           |                 |
 | colors                                <br/> https://github.com/Marak/colors.js                   | color-utils      |                                | production           |                 |
 | chalk                                 <br/> https://github.com/chalk/chalk                       | color-utils      |                                | production           |                 |
-| detect-port                           <br/>                                                      |                  |                                | production           |                 |
-| react-window                          <br/>                                                      |                  |                                | production           |                 |
-| react-virtualized                     <br/>                                                      |                  |                                | production           |                 |
-| sass                                  <br/>                                                      |                  |                                | production           |                 |
+| lodash, lodash-es                     <br/> https://github.com/lodash/lodash                     |                  | Basic utils                    | production           | basic-tools     |
+| rxjs                                  <br/> https://github.com/ReactiveX/rxjs                    |                  | Basic utils for async          | production           | async-tools     |
+| ylru                                  <br/> https://github.com/node-modules/ylru                 |                  |                                | production           | cache           |
+| ahooks                                <br/> https://github.com/alibaba/hooks                     | react-hooks      |                                | production           |                 |
 | htmx                                  <br/>                                                      |                  | Html enhancer                  | -                    |                 |
 | prettier                              <br/> https://github.com/prettier/prettier                 | formatter        |                                | production           |                 |
-| fs-extra                              <br/>                                                      | node-extension   |                                | production           |                 |
+| fs-extra                              <br/>                                                      | node-extension   | Extension for node:fs          | production           | node            |
 | semver                                <br/>                                                      |                  | Version utils                  | production           |                 |
-| rimraf                                <br/>                                                      |                  | `rm -rf` utils                 | production           |                 |
-| http-proxy-middleware                 <br/> https://github.com/chimurai/http-proxy-middleware    |                  |                                | production           |                 |
-| node-http-proxy                       <br/> https://github.com/http-party/node-http-proxy        |                  |                                | production           |                 |
-| node-easy-cert                        <br/> https://github.com/ottomao/node-easy-cert            |                  | Self-create https certificate  | production           |                 |
-| nodemon                               <br/>                                                      |                  |                                | production           |                 |
-| hagent                                <br/> https://github.com/avwo/hagent                       |                  | Http agent                     | -                    |                 |
-| is-glob                               <br/> https://github.com/micromatch/is-glob                |                  | Check if string is glob        | production           |                 |
-| is-extglob                            <br/> https://github.com/micromatch/is-extglob             |                  | Check if string is ext-glob    | production           |                 |
-| benchmark                             <br/> https://github.com/bestiejs/benchmark.js             |                  | Benchmark packages performance | production           |                 |
-| platform                              <br/> https://github.com/bestiejs/platform.js              |                  | Platform detecter              | production           |                 |
+| http-proxy-middleware                 <br/> https://github.com/chimurai/http-proxy-middleware    |                  |                                | production           | http, node      |
+| node-http-proxy                       <br/> https://github.com/http-party/node-http-proxy        |                  |                                | production           | http            |
+| node-easy-cert                        <br/> https://github.com/ottomao/node-easy-cert            |                  | Self-create https certificate  | production           | ssl             |
+| hagent                                <br/> https://github.com/avwo/hagent                       |                  | Http agent                     | -                    | http            |
+| is-glob                               <br/> https://github.com/micromatch/is-glob                |                  | Check if string is glob        | production           | regexp          |
+| is-extglob                            <br/> https://github.com/micromatch/is-extglob             |                  | Check if string is ext-glob    | production           | regexp          |
+| platform                              <br/> https://github.com/bestiejs/platform.js              |                  | Platform detecter              | production           | env             |
 |                                                                                                  |                  |                                |                      |                 |
 | -                                     <br/>                                                      |                  |                                | production           |                 |
 |                                                                                                  |                  |                                |                      |                 |

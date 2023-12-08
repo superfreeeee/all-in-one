@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { useClickOutside } from './useClickOutside';
 import { useRef } from 'react';
 
@@ -8,7 +8,7 @@ const renderComp = (Comp: () => JSX.Element) => {
 };
 
 describe('useClickOutside tests', () => {
-  test('inside', async () => {
+  test('inside', () => {
     let clickedOutside = false;
 
     renderComp(() => {
@@ -18,21 +18,27 @@ describe('useClickOutside tests', () => {
       });
       return (
         <div>
-          <div ref={targetRef} id="target">
+          <div ref={targetRef} data-testid="target" id="target">
             Target
           </div>
-          <div id="other">Other</div>
+          <div data-testid="other" id="other">
+            Other
+          </div>
         </div>
       );
     });
 
+    const target = screen.getByTestId('target');
+    const other = screen.getByTestId('other');
+
     expect(clickedOutside).toBe(false);
 
-    await waitFor(() => {
-      (document.querySelector('#target') as HTMLDivElement).click();
-      expect(clickedOutside).toBe(false);
-      (document.querySelector('#other') as HTMLDivElement).click();
-      expect(clickedOutside).toBe(true);
-    });
+    // click target
+    fireEvent.click(target);
+    expect(clickedOutside).toBe(false);
+
+    // click other
+    fireEvent.click(other);
+    expect(clickedOutside).toBe(true);
   });
 });

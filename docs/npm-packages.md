@@ -114,6 +114,7 @@ Home Page: https://www.npmjs.com/
 | is-glob                               <br/> https://github.com/micromatch/is-glob                |                  | Check if string is glob        | production           | regexp          |
 | is-extglob                            <br/> https://github.com/micromatch/is-extglob             |                  | Check if string is ext-glob    | production           | regexp          |
 | platform                              <br/> https://github.com/bestiejs/platform.js              |                  | Platform detecter              | production           | env             |
+| watchpack                             <br/>                                                      |                  |                                | production           |                 |
 |                                                                                                  |                  |                                |                      |                 |
 | -                                     <br/>                                                      |                  |                                | production           |                 |
 |                                                                                                  |                  |                                |                      |                 |

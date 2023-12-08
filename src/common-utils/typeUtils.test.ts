@@ -1,4 +1,4 @@
-import { asArray } from './basic-types';
+import { asArray } from './typeUtils';
 
 describe('asArray tests', () => {
   test('primitive', () => {

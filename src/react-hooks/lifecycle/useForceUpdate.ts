@@ -5,6 +5,6 @@ import { useReducer } from 'react';
  * @returns
  */
 export const useForceUpdate = (): (() => void) => {
-  const [, forceUpdate] = useReducer(() => ({}), null);
+  const [, forceUpdate] = useReducer<any>(() => ({}), null);
   return forceUpdate;
 };

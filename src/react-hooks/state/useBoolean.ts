@@ -22,5 +22,3 @@ export const useBoolean = (initValue: boolean = false) => {
 
   return [state, { setTrue, setFalse, toggle }] as const;
 };
-
-export default useBoolean;

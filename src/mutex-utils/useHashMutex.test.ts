@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { useHashMutex } from './useHashMutex';
-import { useForceUpdate } from '../react-hooks/lifecycle';
+import { useForceUpdate } from '../react-hooks';
 
 describe('useHashMutex tests', () => {
   test('basic test', async () => {

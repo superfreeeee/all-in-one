@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react';
-import { useRenderCount } from '../utils';
+import { useRenderCount } from '../utils/useRenderCount';
 import { useForceUpdate } from './useForceUpdate';
 
 describe('useForceUpdate tests', () => {

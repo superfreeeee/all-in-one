@@ -2,9 +2,15 @@ import { createCACert } from '../createCACert';
 import { createDomainCert } from '../createDomainCert';
 
 describe('createDomainCert tests', () => {
-  test('create success', () => {
+  test('domain host', () => {
     const rootCA = createCACert({ commonName: 'YouxianProxy' });
     const domainCert = createDomainCert(rootCA, 'localhost');
+    expect(domainCert).toBeDefined();
+  });
+
+  test('ip host', () => {
+    const rootCA = createCACert({ commonName: 'YouxianProxy' });
+    const domainCert = createDomainCert(rootCA, '127.0.0.1');
     expect(domainCert).toBeDefined();
   });
 

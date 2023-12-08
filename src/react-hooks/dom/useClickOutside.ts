@@ -12,15 +12,15 @@ export const useClickOutside = (targetRef: React.RefObject<DomTarget>, cb: (e: M
   const cbRef = useEvent(cb);
 
   useEffect(() => {
-    const onClick = (e: MouseEvent) => {
-      if (targetRef.current.contains(e.target as Element)) {
+    const onDocumentClick = (e: MouseEvent) => {
+      if (targetRef.current && !targetRef.current.contains(e.target as Element)) {
         cbRef(e);
       }
     };
 
-    document.addEventListener('click', onClick);
+    document.addEventListener('click', onDocumentClick);
     return () => {
-      document.removeEventListener('click', onClick);
+      document.removeEventListener('click', onDocumentClick);
     };
   }, [targetRef, cbRef]);
 };

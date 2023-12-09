@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { renderHook, waitFor } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react';
 import { useEvent } from './useEvent';
 
 describe('useEvent tests', () => {
-  test('basic test', async () => {
+  test('basic test', () => {
     const { result } = renderHook(() => {
       const [num, setNum] = useState(0);
       const getNum = useEvent(() => num);
@@ -13,10 +13,9 @@ describe('useEvent tests', () => {
     const { getNum } = result.current;
 
     expect(result.current.num).toBe(0);
-    await waitFor(() => {
-      result.current.setNum(1);
-      expect(result.current.num).toBe(1);
-      expect(getNum()).toBe(1);
-    });
+
+    act(() => result.current.setNum(1));
+    expect(result.current.num).toBe(1);
+    expect(getNum()).toBe(1);
   });
 });

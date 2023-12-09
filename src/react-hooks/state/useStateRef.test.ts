@@ -53,14 +53,21 @@ describe('useStateRef tests', () => {
       };
     });
 
-    [
-      { action: () => {}, res: [0, [0, 0], [0, 0]] },
-      { action: () => result.current.setNum(1), res: [1, [0, 1], [1, 1]] },
-      { action: () => result.current.setNum(2), res: [2, [1, 2], [2, 2]] },
-    ].forEach(({ action, res }) => {
-      act(() => {
-        action();
-      });
+    (
+      [
+        { action: () => {}, res: [0, [0, 0], [0, 0]] },
+        { action: () => result.current.setNum(1), res: [1, [0, 1], [1, 1]] },
+        { action: () => result.current.setNum(2), res: [2, [1, 2], [2, 2]] },
+      ] as Array<{
+        action: VoidFunction;
+        res: [
+          currentNum: number,
+          numsBefore: [num1Before: number, num2Before: number],
+          numsAfter: [num1After: number, num2After: number],
+        ];
+      }>
+    ).forEach(({ action, res }) => {
+      act(() => action());
 
       expect(result.current.num).toBe(res[0]);
       expect(result.current.numsBeforeEffect.current).toEqual({

@@ -1,9 +1,9 @@
-import { renderHook, waitFor } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react';
 import { useHashMutex } from './useHashMutex';
 import { useForceUpdate } from '../react-hooks';
 
 describe('useHashMutex tests', () => {
-  test('basic test', async () => {
+  test('basic test', () => {
     const { result } = renderHook(() => {
       const mutex = useHashMutex();
       const forceUpdate = useForceUpdate();
@@ -11,11 +11,9 @@ describe('useHashMutex tests', () => {
     });
 
     const mutex1 = result.current.mutex;
-    await waitFor(() => {
-      // test singleton after re-render
-      result.current.forceUpdate();
-      expect(result.current.mutex).toBe(mutex1);
-    });
+    // test singleton after re-render
+    act(() => result.current.forceUpdate());
+    expect(result.current.mutex).toBe(mutex1);
 
     const mutex2 = result.current.mutex;
     const isExpired1 = mutex1.next();

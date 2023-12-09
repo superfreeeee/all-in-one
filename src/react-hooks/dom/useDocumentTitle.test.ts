@@ -44,7 +44,8 @@ describe('useDocumentTitle tests', () => {
       });
     });
 
-    const title = document.head.querySelector('title');
+    const title = document.head.querySelector('title') as HTMLTitleElement;
+    expect(title).toBeDefined();
     observer.observe(title, { characterData: true, subtree: true, childList: true });
 
     act(() => setTitle('a'));

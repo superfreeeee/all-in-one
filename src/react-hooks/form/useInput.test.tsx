@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { useInput } from './useInput';
 
 const renderComp = (Comp: () => JSX.Element) => {
@@ -7,8 +7,8 @@ const renderComp = (Comp: () => JSX.Element) => {
 };
 
 describe('useInput tests', () => {
-  test('MVP', async () => {
-    let resetFn;
+  test('MVP', () => {
+    let resetFn: VoidFunction;
     renderComp(() => {
       const [value, onInputChange, { reset }] = useInput('init');
       resetFn = reset;
@@ -19,11 +19,9 @@ describe('useInput tests', () => {
     fireEvent.change(input, { target: { value: 'other' } });
     expect(input.value).toBe('other');
 
-    await waitFor(() => {
-      // test reset
-      resetFn();
-      expect(input.value).toBe('init');
-    });
+    // test reset
+    act(() => resetFn());
+    expect(input.value).toBe('init');
   });
 
   test('default value', () => {

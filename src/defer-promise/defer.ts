@@ -1,6 +1,6 @@
-export type Deferred<T, E extends Error = Error> = Promise<T> & {
-  resolve: (res: T) => void;
-  reject: (err: E) => void;
+export type Deferred<T, E = any> = Promise<T> & {
+  resolve: (value: T | PromiseLike<T>) => void;
+  reject: (reason?: E) => void;
   promise: Promise<T>;
 };
 
@@ -9,7 +9,7 @@ export type DeferOptions = {
 };
 
 export const defer = <T, E extends Error = Error>({ timeout }: DeferOptions = {}): Deferred<T, E> => {
-  let _resolve, _reject;
+  let _resolve: any, _reject: any; // ignore type check
   const deferred = new Promise<T>((resolve, reject) => {
     _resolve = resolve;
     _reject = reject;

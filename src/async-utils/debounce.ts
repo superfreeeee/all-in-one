@@ -5,7 +5,7 @@
  * @returns
  */
 export const debounce = (fn: Function, delay: number) => {
-  let timer: number | null = null;
+  let timer: number | undefined;
 
   return (...args: any[]) => {
     clearTimeout(timer);

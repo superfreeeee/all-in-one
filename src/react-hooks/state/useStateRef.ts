@@ -5,7 +5,7 @@ import { useRef } from 'react';
  * @param state
  * @returns
  */
-export const useStateRef = <T>(state: T): React.RefObject<T> => {
+export const useStateRef = <T>(state: T): React.MutableRefObject<T> => {
   const stateRef = useRef<T>(state);
   stateRef.current = state;
   return stateRef;

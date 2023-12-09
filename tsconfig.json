@@ -1,7 +1,3 @@
 {
-  "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "strictNullChecks": true,
-    "jsx": "preserve"
-  }
+  "extends": "./configs/tsconfig.base.json"
 }

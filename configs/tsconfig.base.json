@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "target": "ESNext",
+    "jsx": "preserve"
+  },
+  "display": "Youxian.base"
+}

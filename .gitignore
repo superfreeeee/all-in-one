@@ -1,2 +1,11 @@
-/coverage
+# system
+.DS_Store
+
+# front-end development
 /node_modules
+
+# test coverage reports
+/coverage
+
+# local debugger config
+/.vscode

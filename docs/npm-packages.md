@@ -61,6 +61,9 @@ Home Page: https://www.npmjs.com/
 | react-query                           <br/>                                                      | http-request     |                                | production           | react           |
 | swr                                   <br/> https://github.com/vercel/swr                        | http-request     |                                | production           | react           |
 |                                                                                                  |                  |                                |                      |                 |
+| nock                                  <br/> https://github.com/nock/nock                         | http-mock        | Http server mocking            | production           |                 |
+| msw                                   <br/> https://github.com/mswjs/msw                         | http-mock        | Mock Service Worker            | production           |                 |
+|                                                                                                  |                  |                                |                      |                 |
 | anyproxy                              <br/> https://github.com/alibaba/anyproxy                  | http-proxy       |                                | production           |                 |
 | whistle                               <br/> https://github.com/avwo/whistle                      | http-proxy       |                                | production           |                 |
 |                                                                                                  |                  |                                |                      |                 |

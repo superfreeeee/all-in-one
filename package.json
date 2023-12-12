@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "prepare": "husky install",
-    "test": "pnpm run test:coverage:auto",
-    "test:coverage": "jest --coverage -w 4",
-    "test:coverage:auto": "UNSET_COVERAGE=true jest --coverage -w 4",
-    "typechecking": "tsc --noEmit"
+    "test": "pnpm --filter=all-in-one run test",
+    "test:coverage": "pnpm --filter=all-in-one run test:coverage",
+    "typechecking": "pnpm --filter=all-in-one run typechecking"
   },
   "keywords": [],
   "author": "",

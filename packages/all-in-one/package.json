@@ -1,0 +1,14 @@
+{
+  "name": "all-in-one",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "UNSET_COVERAGE=true jest --coverage -w 4",
+    "test:coverage": "jest --coverage -w 4",
+    "typechecking": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -9,3 +9,7 @@
 
 # local debugger config
 /.vscode
+
+# Added by cargo
+
+/target

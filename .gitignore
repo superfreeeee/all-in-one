@@ -12,3 +12,5 @@ node_modules
 
 # Added by cargo
 /target
+# swc tools
+.swc

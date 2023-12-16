@@ -284,8 +284,6 @@ dependencies = [
 name = "disable_dynamic_import_swc_plugin"
 version = "0.1.0"
 dependencies = [
- "serde",
- "serde_json",
  "swc_core",
 ]
 

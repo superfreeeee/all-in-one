@@ -1,0 +1,6 @@
+# Added by cargo
+/target
+/tests
+
+# production
+/disable_dynamic_import_swc_plugin.wasm

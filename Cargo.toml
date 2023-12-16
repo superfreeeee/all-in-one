@@ -1,2 +1,3 @@
 [workspace]
 members = ["crates/*"]
+exclude = ["packages/disable_dynamic_import_swc_plugin"]

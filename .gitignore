@@ -2,7 +2,7 @@
 .DS_Store
 
 # front-end development
-/node_modules
+node_modules
 
 # test coverage reports
 /coverage
@@ -11,5 +11,4 @@
 /.vscode
 
 # Added by cargo
-
 /target

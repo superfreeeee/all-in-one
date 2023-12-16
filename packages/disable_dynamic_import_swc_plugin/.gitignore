@@ -2,5 +2,5 @@
 /target
 /tests
 
-# production
-/disable_dynamic_import_swc_plugin.wasm
+# enable production to git
+# /disable_dynamic_import_swc_plugin.wasm

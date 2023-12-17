@@ -7,10 +7,10 @@ node_modules
 # test coverage reports
 /coverage
 
-# local debugger config
-/.vscode
+# preserve vscode workspace settings
+# /.vscode
 
-# Added by cargo
+# cargo production
 /target
-# swc tools
+# swc cache
 .swc

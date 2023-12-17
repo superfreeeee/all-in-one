@@ -51,7 +51,7 @@ mod path_tests {
 }
 
 #[cfg(test)]
-mod env_test {
+mod env_tests {
     use std::{env, io};
 
     #[test]
@@ -60,6 +60,46 @@ mod env_test {
         let cmd = env::current_exe()?;
         println!("cwd={cwd:?}");
         println!("cmd={cmd:?}");
+
+        Ok(())
+    }
+}
+
+#[cfg(test)]
+mod fs_tests {
+    use std::fs::{self};
+
+    use yx_common::AnyError;
+
+    #[test]
+    fn read_dir_test() -> Result<(), AnyError> {
+        let dir = fs::read_dir(".")?;
+
+        for entry in dir {
+            let entry = entry?;
+
+            println!("=>>>>>>>> entry");
+            let name = entry.file_name();
+            println!("name  : {:?}", name);
+
+            let path = entry.path();
+            println!("path  : {:?}", path);
+
+            let file_type = entry.file_type()?;
+            println!("is_dir     : {}", file_type.is_dir());
+            println!("is_file    : {}", file_type.is_file());
+            println!("is_symlink : {}", file_type.is_symlink());
+
+            let metadata = entry.metadata()?;
+            println!("created   : {:?}", metadata.created()?);
+            println!("modified  : {:?}", metadata.modified()?);
+            println!("accessed  : {:?}", metadata.accessed()?);
+
+            println!("permissions  : {:?}", metadata.permissions());
+
+            println!("{:#?}", entry.metadata()?);
+            println!();
+        }
 
         Ok(())
     }

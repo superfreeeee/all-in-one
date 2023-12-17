@@ -8,6 +8,7 @@ Home Page: https://crates.io/
 | clap    <br/> https://github.com/clap-rs/clap   |            | Cli args parse                 | production |            |
 | serde   <br/> https://github.com/serde-rs/serde |            | Serialize / Deserialize tools  | production |            |
 | syn     <br/> https://github.com/dtolnay/syn    |            | Rust syntax parsing for macros | production |            |
+| dirs    <br/>                                   |            | Correct cross platform dirs    | production |            |
 |                                                 |            |                                |            |            |
 | -       <br/>                                   |            |                                | production |            |
 |                                                 |            |                                |            |            |

@@ -1,5 +1,9 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+# for packages
 pnpm run test:coverage
 pnpm run typechecking
+
+# for crates
+cargo test

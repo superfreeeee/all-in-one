@@ -1,3 +1,5 @@
+mod test_visibility;
+
 fn main() {
     println!("Hello, world!");
 }
@@ -179,5 +181,15 @@ mod static_tests {
             STATIC_NUM = 2;
             println!("STATIC_NUM={}", STATIC_NUM);
         }
+    }
+}
+
+#[cfg(test)]
+mod visibility_tests {
+    use crate::test_visibility::root;
+
+    #[test]
+    fn test() {
+        println!("{:?}", root::A::from(1));
     }
 }

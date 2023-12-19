@@ -14,6 +14,7 @@ Home Page: https://crates.io/
 | indicatif               <br/> https://github.com/console-rs/indicatif |            | Progress bar for cli              | production |            |
 | log                     <br/> https://github.com/rust-lang/log        |            | Logging library for rust          | production |            |
 | env_logger              <br/> https://github.com/rust-cli/env_logger  |            | Local adapter                     | production |            |
+| bumpalo                 <br/> https://github.com/fitzgen/bumpalo      |            | Down level allocation             | production |            |
 |                                                                       |            |                                   |            |            |
 | -                       <br/>                                         |            |                                   | production |            |
 |                                                                       |            |                                   |            |            |

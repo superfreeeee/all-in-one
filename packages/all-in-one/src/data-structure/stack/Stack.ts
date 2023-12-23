@@ -1,4 +1,4 @@
-interface IStack<T> {
+export interface IStack<T> {
   push(data: T): number;
   pop(): T | undefined;
   size(): number;

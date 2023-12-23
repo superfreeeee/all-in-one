@@ -14,6 +14,22 @@ export class MaxHeap<T> implements IHeap<T> {
     return heap;
   }
 
+  insert(data: T): number {
+    const len = this._heap.push(data);
+
+    let cur = len - 1;
+    while (cur > 0) {
+      const p = parent(cur);
+      if (this._heap[p] >= this._heap[cur]) {
+        break;
+      }
+      this.swap(cur, p);
+      cur = p;
+    }
+
+    return len;
+  }
+
   next(): T | undefined {
     return this._heap[0];
   }

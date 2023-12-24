@@ -9,12 +9,11 @@
     "test:coverage": "pnpm --filter=all-in-one run test:coverage",
     "typechecking": "pnpm --filter=all-in-one run typechecking"
   },
+  "devDependencies": {
+    "husky": "^8.0.3"
+  },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "devDependencies": {},
-  "packageManager": "pnpm@8.11.0",
-  "dependencies": {
-    "husky": "^8.0.3"
-  }
+  "license": "MIT",
+  "packageManager": "pnpm@8.11.0"
 }

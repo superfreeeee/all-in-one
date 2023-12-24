@@ -1,10 +1,10 @@
 {
   "name": "test_swc_plugins",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "swc src -d lib && node --experimental-specifier-resolution=node ./lib/index.js"
+    "dev": "swc src -d lib && node --experimental-specifier-resolution=node ./lib/index.js"
   },
   "keywords": [],
   "author": "",

@@ -2092,6 +2092,510 @@ class JavascriptModulesPlugin {
 - 核心概念
   - `normalModuleFactory` 模块解析
 
+## RuntimePlugin runtime 模块注入
+
+```js
+// source: lib/RuntimePlugin.js
+const GLOBALS_ON_REQUIRE = [
+	RuntimeGlobals.chunkName,
+	RuntimeGlobals.runtimeId,
+	RuntimeGlobals.compatGetDefaultExport,
+	RuntimeGlobals.createFakeNamespaceObject,
+	RuntimeGlobals.createScript,
+	RuntimeGlobals.createScriptUrl,
+	RuntimeGlobals.getTrustedTypesPolicy,
+	RuntimeGlobals.definePropertyGetters,
+	RuntimeGlobals.ensureChunk,
+	RuntimeGlobals.entryModuleId,
+	RuntimeGlobals.getFullHash,
+	RuntimeGlobals.global,
+	RuntimeGlobals.makeNamespaceObject,
+	RuntimeGlobals.moduleCache,
+	RuntimeGlobals.moduleFactories,
+	RuntimeGlobals.moduleFactoriesAddOnly,
+	RuntimeGlobals.interceptModuleExecution,
+	RuntimeGlobals.publicPath,
+	RuntimeGlobals.baseURI,
+	RuntimeGlobals.relativeUrl,
+	RuntimeGlobals.scriptNonce,
+	RuntimeGlobals.uncaughtErrorHandler,
+	RuntimeGlobals.asyncModule,
+	RuntimeGlobals.wasmInstances,
+	RuntimeGlobals.instantiateWasm,
+	RuntimeGlobals.shareScopeMap,
+	RuntimeGlobals.initializeSharing,
+	RuntimeGlobals.loadScript,
+	RuntimeGlobals.systemContext,
+	RuntimeGlobals.onChunksLoaded
+];
+
+const MODULE_DEPENDENCIES = {
+	[RuntimeGlobals.moduleLoaded]: [RuntimeGlobals.module],
+	[RuntimeGlobals.moduleId]: [RuntimeGlobals.module]
+};
+
+const TREE_DEPENDENCIES = {
+	[RuntimeGlobals.definePropertyGetters]: [RuntimeGlobals.hasOwnProperty],
+	[RuntimeGlobals.compatGetDefaultExport]: [
+		RuntimeGlobals.definePropertyGetters
+	],
+	[RuntimeGlobals.createFakeNamespaceObject]: [
+		RuntimeGlobals.definePropertyGetters,
+		RuntimeGlobals.makeNamespaceObject,
+		RuntimeGlobals.require
+	],
+	[RuntimeGlobals.initializeSharing]: [RuntimeGlobals.shareScopeMap],
+	[RuntimeGlobals.shareScopeMap]: [RuntimeGlobals.hasOwnProperty]
+};
+
+class RuntimePlugin {
+	/**
+	 * @param {Compiler} compiler the Compiler
+	 * @returns {void}
+	 */
+	apply(compiler) {
+		compiler.hooks.compilation.tap("RuntimePlugin", compilation => {
+			const globalChunkLoading = compilation.outputOptions.chunkLoading;
+			/**
+			 * @param {Chunk} chunk chunk
+			 * @returns {boolean} true, when chunk loading is disabled for the chunk
+			 */
+			const isChunkLoadingDisabledForChunk = chunk => {
+				const options = chunk.getEntryOptions();
+				const chunkLoading =
+					options && options.chunkLoading !== undefined
+						? options.chunkLoading
+						: globalChunkLoading;
+				return chunkLoading === false;
+			};
+			// 注册 RuntimeRequirementsDependency
+			compilation.dependencyTemplates.set(
+				RuntimeRequirementsDependency,
+				new RuntimeRequirementsDependency.Template()
+			);
+			// 注册 runtime 全局变量 1
+			for (const req of GLOBALS_ON_REQUIRE) {
+				compilation.hooks.runtimeRequirementInModule
+					.for(req)
+					.tap("RuntimePlugin", (module, set) => {
+						set.add(RuntimeGlobals.requireScope);
+					});
+				compilation.hooks.runtimeRequirementInTree
+					.for(req)
+					.tap("RuntimePlugin", (module, set) => {
+						set.add(RuntimeGlobals.requireScope);
+					});
+			}
+			// 注册 runtime 全局变量 2
+			for (const req of Object.keys(TREE_DEPENDENCIES)) {
+				const deps =
+					TREE_DEPENDENCIES[/** @type {keyof TREE_DEPENDENCIES} */ (req)];
+				compilation.hooks.runtimeRequirementInTree
+					.for(req)
+					.tap("RuntimePlugin", (chunk, set) => {
+						for (const dep of deps) set.add(dep);
+					});
+			}
+			// 注册 runtime 模块用全局变量
+			for (const req of Object.keys(MODULE_DEPENDENCIES)) {
+				const deps =
+					MODULE_DEPENDENCIES[/** @type {keyof MODULE_DEPENDENCIES} */ (req)];
+				compilation.hooks.runtimeRequirementInModule
+					.for(req)
+					.tap("RuntimePlugin", (chunk, set) => {
+						for (const dep of deps) set.add(dep);
+					});
+			}
+			// 注册 __webpack_require__.d 实现
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.definePropertyGetters)
+				.tap("RuntimePlugin", chunk => {
+					compilation.addRuntimeModule(
+						chunk,
+						new DefinePropertyGettersRuntimeModule()
+					);
+					return true;
+				});
+			// 注册 __webpack_require__.r 实现
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.makeNamespaceObject)
+				.tap("RuntimePlugin", chunk => {
+					compilation.addRuntimeModule(
+						chunk,
+						new MakeNamespaceObjectRuntimeModule()
+					);
+					return true;
+				});
+			// 注册 __webpack_require__.t 实现
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.createFakeNamespaceObject)
+				.tap("RuntimePlugin", chunk => {
+					compilation.addRuntimeModule(
+						chunk,
+						new CreateFakeNamespaceObjectRuntimeModule()
+					);
+					return true;
+				});
+			// 注册 __webpack_require__.o 实现
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.hasOwnProperty)
+				.tap("RuntimePlugin", chunk => {
+					compilation.addRuntimeModule(
+						chunk,
+						new HasOwnPropertyRuntimeModule()
+					);
+					return true;
+				});
+			// 注册 __webpack_require__.n 实现
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.compatGetDefaultExport)
+				.tap("RuntimePlugin", chunk => {
+					compilation.addRuntimeModule(
+						chunk,
+						new CompatGetDefaultExportRuntimeModule()
+					);
+					return true;
+				});
+			// 注册 __webpack_require__.j 实现
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.runtimeId)
+				.tap("RuntimePlugin", chunk => {
+					compilation.addRuntimeModule(chunk, new RuntimeIdRuntimeModule());
+					return true;
+				});
+			// 注册 __webpack_require__.p 实现
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.publicPath)
+				.tap("RuntimePlugin", (chunk, set) => {
+					const { outputOptions } = compilation;
+					const { publicPath: globalPublicPath, scriptType } = outputOptions;
+					const entryOptions = chunk.getEntryOptions();
+					const publicPath =
+						entryOptions && entryOptions.publicPath !== undefined
+							? entryOptions.publicPath
+							: globalPublicPath;
+
+					if (publicPath === "auto") {
+						const module = new AutoPublicPathRuntimeModule();
+						if (scriptType !== "module") set.add(RuntimeGlobals.global);
+						compilation.addRuntimeModule(chunk, module);
+					} else {
+						const module = new PublicPathRuntimeModule(publicPath);
+
+						if (
+							typeof publicPath !== "string" ||
+							/\[(full)?hash\]/.test(publicPath)
+						) {
+							module.fullHash = true;
+						}
+
+						compilation.addRuntimeModule(chunk, module);
+					}
+					return true;
+				});
+			// 注册 __webpack_require__.g 实现
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.global)
+				.tap("RuntimePlugin", chunk => {
+					compilation.addRuntimeModule(chunk, new GlobalRuntimeModule());
+					return true;
+				});
+			// 注册 __webpack_require__.a 实现
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.asyncModule)
+				.tap("RuntimePlugin", chunk => {
+					compilation.addRuntimeModule(chunk, new AsyncModuleRuntimeModule());
+					return true;
+				});
+			// 注册 __webpack_require__.y 实现
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.systemContext)
+				.tap("RuntimePlugin", chunk => {
+					const { outputOptions } = compilation;
+					const { library: globalLibrary } = outputOptions;
+					const entryOptions = chunk.getEntryOptions();
+					const libraryType =
+						entryOptions && entryOptions.library !== undefined
+							? entryOptions.library.type
+							: globalLibrary.type;
+
+					if (libraryType === "system") {
+						compilation.addRuntimeModule(
+							chunk,
+							new SystemContextRuntimeModule()
+						);
+					}
+					return true;
+				});
+			// 注册 __webpack_require__.u 实现
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.getChunkScriptFilename)
+				.tap("RuntimePlugin", (chunk, set) => {
+					if (
+						typeof compilation.outputOptions.chunkFilename === "string" &&
+						/\[(full)?hash(:\d+)?\]/.test(
+							compilation.outputOptions.chunkFilename
+						)
+					) {
+						set.add(RuntimeGlobals.getFullHash);
+					}
+					compilation.addRuntimeModule(
+						chunk,
+						new GetChunkFilenameRuntimeModule(
+							"javascript",
+							"javascript",
+							RuntimeGlobals.getChunkScriptFilename,
+							chunk =>
+								chunk.filenameTemplate ||
+								(chunk.canBeInitial()
+									? compilation.outputOptions.filename
+									: compilation.outputOptions.chunkFilename),
+							false
+						)
+					);
+					return true;
+				});
+			// 注册 __webpack_require__.k 实现
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.getChunkCssFilename)
+				.tap("RuntimePlugin", (chunk, set) => {
+					if (
+						typeof compilation.outputOptions.cssChunkFilename === "string" &&
+						/\[(full)?hash(:\d+)?\]/.test(
+							compilation.outputOptions.cssChunkFilename
+						)
+					) {
+						set.add(RuntimeGlobals.getFullHash);
+					}
+					compilation.addRuntimeModule(
+						chunk,
+						new GetChunkFilenameRuntimeModule(
+							"css",
+							"css",
+							RuntimeGlobals.getChunkCssFilename,
+							chunk =>
+								getChunkFilenameTemplate(chunk, compilation.outputOptions),
+							set.has(RuntimeGlobals.hmrDownloadUpdateHandlers)
+						)
+					);
+					return true;
+				});
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.getChunkUpdateScriptFilename)
+				.tap("RuntimePlugin", (chunk, set) => {
+					if (
+						/\[(full)?hash(:\d+)?\]/.test(
+							compilation.outputOptions.hotUpdateChunkFilename
+						)
+					)
+						set.add(RuntimeGlobals.getFullHash);
+					compilation.addRuntimeModule(
+						chunk,
+						new GetChunkFilenameRuntimeModule(
+							"javascript",
+							"javascript update",
+							RuntimeGlobals.getChunkUpdateScriptFilename,
+							c => compilation.outputOptions.hotUpdateChunkFilename,
+							true
+						)
+					);
+					return true;
+				});
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.getUpdateManifestFilename)
+				.tap("RuntimePlugin", (chunk, set) => {
+					if (
+						/\[(full)?hash(:\d+)?\]/.test(
+							compilation.outputOptions.hotUpdateMainFilename
+						)
+					) {
+						set.add(RuntimeGlobals.getFullHash);
+					}
+					compilation.addRuntimeModule(
+						chunk,
+						new GetMainFilenameRuntimeModule(
+							"update manifest",
+							RuntimeGlobals.getUpdateManifestFilename,
+							compilation.outputOptions.hotUpdateMainFilename
+						)
+					);
+					return true;
+				});
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.ensureChunk)
+				.tap("RuntimePlugin", (chunk, set) => {
+					const hasAsyncChunks = chunk.hasAsyncChunks();
+					if (hasAsyncChunks) {
+						set.add(RuntimeGlobals.ensureChunkHandlers);
+					}
+					compilation.addRuntimeModule(
+						chunk,
+						new EnsureChunkRuntimeModule(set)
+					);
+					return true;
+				});
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.ensureChunkIncludeEntries)
+				.tap("RuntimePlugin", (chunk, set) => {
+					set.add(RuntimeGlobals.ensureChunkHandlers);
+				});
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.shareScopeMap)
+				.tap("RuntimePlugin", (chunk, set) => {
+					compilation.addRuntimeModule(chunk, new ShareRuntimeModule());
+					return true;
+				});
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.loadScript)
+				.tap("RuntimePlugin", (chunk, set) => {
+					const withCreateScriptUrl = !!compilation.outputOptions.trustedTypes;
+					if (withCreateScriptUrl) {
+						set.add(RuntimeGlobals.createScriptUrl);
+					}
+					const withFetchPriority = set.has(RuntimeGlobals.hasFetchPriority);
+					compilation.addRuntimeModule(
+						chunk,
+						new LoadScriptRuntimeModule(withCreateScriptUrl, withFetchPriority)
+					);
+					return true;
+				});
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.createScript)
+				.tap("RuntimePlugin", (chunk, set) => {
+					if (compilation.outputOptions.trustedTypes) {
+						set.add(RuntimeGlobals.getTrustedTypesPolicy);
+					}
+					compilation.addRuntimeModule(chunk, new CreateScriptRuntimeModule());
+					return true;
+				});
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.createScriptUrl)
+				.tap("RuntimePlugin", (chunk, set) => {
+					if (compilation.outputOptions.trustedTypes) {
+						set.add(RuntimeGlobals.getTrustedTypesPolicy);
+					}
+					compilation.addRuntimeModule(
+						chunk,
+						new CreateScriptUrlRuntimeModule()
+					);
+					return true;
+				});
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.getTrustedTypesPolicy)
+				.tap("RuntimePlugin", (chunk, set) => {
+					compilation.addRuntimeModule(
+						chunk,
+						new GetTrustedTypesPolicyRuntimeModule(set)
+					);
+					return true;
+				});
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.relativeUrl)
+				.tap("RuntimePlugin", (chunk, set) => {
+					compilation.addRuntimeModule(chunk, new RelativeUrlRuntimeModule());
+					return true;
+				});
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.onChunksLoaded)
+				.tap("RuntimePlugin", (chunk, set) => {
+					compilation.addRuntimeModule(
+						chunk,
+						new OnChunksLoadedRuntimeModule()
+					);
+					return true;
+				});
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.baseURI)
+				.tap("RuntimePlugin", chunk => {
+					if (isChunkLoadingDisabledForChunk(chunk)) {
+						compilation.addRuntimeModule(chunk, new BaseUriRuntimeModule());
+						return true;
+					}
+				});
+			compilation.hooks.runtimeRequirementInTree
+				.for(RuntimeGlobals.scriptNonce)
+				.tap("RuntimePlugin", chunk => {
+					compilation.addRuntimeModule(chunk, new NonceRuntimeModule());
+					return true;
+				});
+			// TODO webpack 6: remove CompatRuntimeModule
+			compilation.hooks.additionalTreeRuntimeRequirements.tap(
+				"RuntimePlugin",
+				(chunk, set) => {
+					const { mainTemplate } = compilation;
+					if (
+						mainTemplate.hooks.bootstrap.isUsed() ||
+						mainTemplate.hooks.localVars.isUsed() ||
+						mainTemplate.hooks.requireEnsure.isUsed() ||
+						mainTemplate.hooks.requireExtensions.isUsed()
+					) {
+						compilation.addRuntimeModule(chunk, new CompatRuntimeModule());
+					}
+				}
+			);
+			JavascriptModulesPlugin.getCompilationHooks(compilation).chunkHash.tap(
+				"RuntimePlugin",
+				(chunk, hash, { chunkGraph }) => {
+					const xor = new StringXor();
+					for (const m of chunkGraph.getChunkRuntimeModulesIterable(chunk)) {
+						xor.add(chunkGraph.getModuleHash(m, chunk.runtime));
+					}
+					xor.updateHash(hash);
+				}
+			);
+		});
+	}
+}
+```
+
+- 核心概念：注入 webpack runtime 代码
+  - `DefinePropertyGettersRuntimeModule` => `RuntimeGlobals.definePropertyGetters = __webpack_require__.d` 实现
+  - `MakeNamespaceObjectRuntimeModule` => `RuntimeGlobals.makeNamespaceObject = __webpack_require__.r` 实现
+  - `CreateFakeNamespaceObjectRuntimeModule` => `RuntimeGlobals.createFakeNamespaceObject = __webpack_require__.t` 实现
+  - `HasOwnPropertyRuntimeModule` => `RuntimeGlobals.hasOwnProperty = __webpack_require__.o` 实现
+  - `CompatGetDefaultExportRuntimeModule` => `RuntimeGlobals.compatGetDefaultExport = __webpack_require__.n` 实现
+	- ... 其他
+
+## DefinePropertyGettersRuntimeModule
+
+```js
+// source: lib/runtime/DefinePropertyGettersRuntimeModule.js
+class DefinePropertyGettersRuntimeModule extends HelperRuntimeModule {
+	constructor() {
+		super("define property getters");
+	}
+
+	/**
+	 * @returns {string | null} runtime code
+	 */
+	generate() {
+		const compilation = /** @type {Compilation} */ (this.compilation);
+		const { runtimeTemplate } = compilation;
+		// fn = '__webpack_require__.d'
+		const fn = RuntimeGlobals.definePropertyGetters;
+		return Template.asString([
+			"// define getter functions for harmony exports",
+			`${fn} = ${runtimeTemplate.basicFunction("exports, definition", [
+				`for(var key in definition) {`,
+				Template.indent([
+					`if(${RuntimeGlobals.hasOwnProperty}(definition, key) && !${RuntimeGlobals.hasOwnProperty}(exports, key)) {`,
+					Template.indent([
+						"Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });"
+					]),
+					"}"
+				]),
+				"}"
+			])};`
+		]);
+	}
+}
+
+module.exports = DefinePropertyGettersRuntimeModule;
+```
+
+- 核心概念
+  - `generate` 阶段生成代码
+
 ## Next
 
 - 核心概念

@@ -406,6 +406,8 @@ NullDependency.Template = class NullDependencyTemplate extends (
 
 # Module > DependenciesBlock
 
+# NormalModule > Module > DependenciesBlock
+
 # RuntimeModule > Module > DependenciesBlock
 
 ```js

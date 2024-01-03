@@ -449,9 +449,12 @@ class WebpackOptionsApply extends OptionsApply {
     // runtime 模块注入
 		new RuntimePlugin().apply(compiler);
 
+		// 标记为 async
 		new InferAsyncModulesPlugin().apply(compiler);
 
+		// 标记 data uri = data:text/javascript 模块属性
 		new DataUriPlugin().apply(compiler);
+		// 标记 file uri = file:///
 		new FileUriPlugin().apply(compiler);
 
 		new CompatibilityPlugin().apply(compiler);

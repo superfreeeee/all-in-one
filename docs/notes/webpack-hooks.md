@@ -81,3 +81,185 @@ EntryPlugin 在 `compiler - make` 阶段调用 `compilation.addEntry`
 
 # Compilation Hooks
 
+- buildModule
+
+- rebuildModule
+
+- failedModule
+
+- succeedModule
+
+- stillValidModule
+
+- addEntry
+
+- failedEntry
+
+- succeedEntry
+
+- dependencyReferencedExports
+
+- executeModule
+
+- prepareModuleExecution
+
+- finishModules
+
+module 解析完成阶段
+
+`InferAsyncModulesPlugin` => 标记 async
+
+- finishRebuildingModule
+
+- unseal
+
+- seal
+
+- beforeChunks
+
+- afterChunks
+
+- optimizeDependencies
+
+- afterOptimizeDependencies
+
+- optimize
+
+- optimizeModules
+
+- afterOptimizeModules
+
+- optimizeChunks
+
+- afterOptimizeChunks
+
+- optimizeTree
+
+- afterOptimizeTree
+
+- optimizeChunkModules
+
+- afterOptimizeChunkModules
+
+- shouldRecord
+
+- additionalChunkRuntimeRequirements
+
+- runtimeRequirementInChunk
+
+- additionalModuleRuntimeRequirements
+
+- runtimeRequirementInModule
+
+- additionalTreeRuntimeRequirements
+
+- runtimeRequirementInTree
+
+- runtimeModule
+
+- reviveModules
+
+- beforeModuleIds
+
+- moduleIds
+
+- optimizeModuleIds
+
+- afterOptimizeModuleIds
+
+- reviveChunks
+
+- beforeChunkIds
+
+- chunkIds
+
+- optimizeChunkIds
+
+- afterOptimizeChunkIds
+
+- recordModules
+
+- recordChunks
+
+- optimizeCodeGeneration
+
+- beforeModuleHash
+
+- afterModuleHash
+
+- beforeCodeGeneration
+
+- afterCodeGeneration
+
+- beforeRuntimeRequirements
+
+- afterRuntimeRequirements
+
+- beforeHash
+
+- contentHash
+
+- afterHash
+
+- recordHash
+
+- record
+
+- beforeModuleAssets
+
+- shouldGenerateChunkAssets
+
+- beforeChunkAssets
+
+- additionalChunkAssets
+
+- additionalAssets
+
+- optimizeChunkAssets
+
+- afterOptimizeChunkAssets
+
+- optimizeAssets
+
+- afterOptimizeAssets
+
+- processAssets
+
+- afterProcessAssets
+
+- processAdditionalAssets
+
+- needAdditionalSeal
+
+- afterSeal
+
+- renderManifest
+
+- fullHash
+
+- chunkHash
+
+- moduleAsset
+
+- chunkAsset
+
+- assetPath
+
+- needAdditionalPass
+
+- childCompiler
+
+- log
+
+- processWarnings
+
+- processErrors
+
+- statsPreset
+
+- statsNormalize
+
+- statsFactory
+
+- statsPrinter
+

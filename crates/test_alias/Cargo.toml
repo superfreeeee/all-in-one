@@ -1,0 +1,12 @@
+[package]
+name = "test_alias"
+version = "0.1.0"
+edition = "2021"
+description = "在 .cargo/config.toml 配置 alias 实现项目 bin 作为 cargo sub command 执行"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[bin]]
+name = "test_alias"
+
+[dependencies]

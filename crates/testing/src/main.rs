@@ -1,3 +1,4 @@
+mod test_macros;
 mod test_visibility;
 
 fn main() {

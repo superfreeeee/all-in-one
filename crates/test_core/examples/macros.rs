@@ -7,8 +7,8 @@ macro_rules! calculate {
     };
 }
 
-#[test]
-fn test() {
+fn test_calculate() {
+    println!("> test_calculate");
     let result_add = calculate!(add 3, 5);
     let result_subtract = calculate!(subtract 2, 8);
 
@@ -33,8 +33,13 @@ macro_rules! ident {
     };
 }
 
-#[test]
 fn test_ident_creation() {
+    println!("> test_ident_creation");
     let ident = ident!(String::from("123"));
     println!("{:?}", ident);
+}
+
+fn main() {
+    test_calculate();
+    test_ident_creation();
 }

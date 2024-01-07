@@ -6,6 +6,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+ansi_term  = { version = "0.12.1" }
+env_logger = { version = "0.10.1" }
+log        = { version = "0.4.20" }
 serde      = { version = "1.0.195", features = ["derive"] }
-serde_json = { version = "1.0.111"}
-yx_common = { version = "0.1.0", path = "../common" }
+serde_json = { version = "1.0.111" }
+yx_common  = { version = "0.1.0", path = "../common" }

@@ -17,6 +17,7 @@ fn inner_alloc(alloc_size: usize) -> Option<*const u8> {
     Some(next_ptr as *const u8)
 }
 
+#[allow(dead_code)]
 struct Item {
     id: u32,
     name: String,

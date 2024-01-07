@@ -16,6 +16,7 @@ fn test_calculate() {
     println!("Result of subtraction: {}", result_subtract);
 }
 
+#[allow(dead_code)]
 #[derive(Debug)]
 struct Ident {
     value: String,

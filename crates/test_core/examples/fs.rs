@@ -36,5 +36,5 @@ fn read_dir_test() -> Result<(), AnyError> {
 }
 
 fn main() {
-    read_dir_test();
+    let _ = read_dir_test();
 }

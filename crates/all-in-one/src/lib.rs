@@ -1,2 +1,1 @@
-mod event_emitter;
-pub use event_emitter::*;
+pub mod design_patterns;

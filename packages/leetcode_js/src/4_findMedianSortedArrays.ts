@@ -1,8 +1,29 @@
 function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
   // return findMedianSortedArrays_1(nums1, nums2);
   return findMedianSortedArrays_2(nums1, nums2);
+  // return findMedianSortedArrays_3(nums1, nums2);
 }
 
+/**
+ * TODO split nums into left right with same amount, move to fit space and get Kth
+ *
+ * time: O(log(min(m, n)))
+ * space: O(1)
+ * @param nums1
+ * @param nums2
+ */
+function findMedianSortedArrays_3(nums1: number[], nums2: number[]): number {
+  return 0;
+}
+
+/**
+ * skip k / 2 at a time
+ * time: O(log(m+n))
+ * space: O(1)
+ * @param nums1
+ * @param nums2
+ * @returns
+ */
 function findMedianSortedArrays_2(nums1: number[], nums2: number[]): number {
   const n = nums1.length + nums2.length;
   if (n & 1) {
@@ -56,6 +77,14 @@ function findMedianSortedArrays_2_getKth(
   }
 }
 
+/**
+ * merge and sort => then find mid
+ * time: O((m+n)log(m+n))
+ * space: O(m+n)
+ * @param nums1
+ * @param nums2
+ * @returns
+ */
 function findMedianSortedArrays_1(nums1: number[], nums2: number[]): number {
   const nums = nums1.concat(nums2);
   nums.sort((x, y) => x - y);

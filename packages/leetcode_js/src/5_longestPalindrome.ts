@@ -12,8 +12,11 @@ const centerExpand = function (s: string, l: number, r: number): string {
 };
 
 function longestPalindrome_2(s: string): string {
-  let res = '';
-  for (let i = 0; i < s.length; i++) {
+  if (s.length <= 1) {
+    return s;
+  }
+  let res = s[0];
+  for (let i = 0; i < s.length - 1; i++) {
     const odd = centerExpand(s, i, i);
     const even = centerExpand(s, i, i + 1);
     if (odd.length > res.length) res = odd;

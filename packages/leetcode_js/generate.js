@@ -87,7 +87,7 @@ tests.forEach((config, i) => {
 
   const testFn = only ? test.only : test;
   testFn(\`test \${i + 1}\`, () => {
-    const res = trap(...args);
+    const res = ${funcName}(...args);
     expect(res).toEqual(ans);
   });
 });

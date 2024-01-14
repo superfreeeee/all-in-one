@@ -6,7 +6,8 @@ Home Page: https://www.npmjs.com/
 | ------------------------------------------------------------------------------------------------ | ---------------- | ------------------------------ | -------------------- | --------------- |
 | react                                 <br/> https://github.com/facebook/react/                   | ui-framework     |                                | production           | react           |
 | react-dom                             <br/> https://github.com/facebook/react/                   | ui-framework     |                                | production           | react           |
-| vue                                   <br/>                                                      | ui-framework     |                                | production           |                 |
+| vue2                                  <br/> https://v2.cn.vuejs.org/                             | ui-framework     |                                | production           |                 |
+| vue3                                  <br/> https://cn.vuejs.org/                                | ui-framework     |                                | production           |                 |
 | angular                               <br/>                                                      | ui-framework     |                                | production           |                 |
 | svelte                                <br/> https://github.com/sveltejs/svelte                   | ui-framework     |                                | production           |                 |
 | solid                                 <br/>                                                      | ui-framework     |                                | production           |                 |

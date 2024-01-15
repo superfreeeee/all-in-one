@@ -25,6 +25,9 @@
 
     <!-- 表单绑定 -->
     <DemoFormBinding />
+
+    <!-- 组件基础: props -->
+    <DemoComponentProps />
   </div>
 </template>
 
@@ -36,6 +39,7 @@ import DemoComputedWatch from './demos/computed-watch.vue';
 import DemoListRender from './demos/list-render.vue';
 import DemoEventHandler from './demos/event-handler.vue';
 import DemoFormBinding from './demos/form-binding.vue';
+import DemoComponentProps from './demos/component-props.vue';
 
 export default {
   name: 'App',
@@ -47,6 +51,7 @@ export default {
     DemoListRender,
     DemoEventHandler,
     DemoFormBinding,
+    DemoComponentProps,
   },
 };
 </script>

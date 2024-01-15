@@ -24,8 +24,6 @@
       <div>computed 依赖 methods: {{ computedCurrentTime2 }}</div>
       <div>nested computed, 嵌套计算属性: {{ computedCurrentTime3 }}</div>
     </div>
-
-    <h3>表单绑定</h3>
   </div>
 </template>
 

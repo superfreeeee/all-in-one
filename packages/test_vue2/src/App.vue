@@ -28,6 +28,14 @@
 
     <!-- 组件基础: props -->
     <DemoComponentProps />
+
+    <!-- 组件懒加载 -->
+    <DemoComponentLazy />
+
+    <DemoComponentLifecycle />
+
+    <!-- 边缘场景 -->
+    <EdgeCase />
   </div>
 </template>
 
@@ -40,6 +48,9 @@ import DemoListRender from './demos/list-render.vue';
 import DemoEventHandler from './demos/event-handler.vue';
 import DemoFormBinding from './demos/form-binding.vue';
 import DemoComponentProps from './demos/component-props.vue';
+import DemoComponentLazy from './demos/component-lazy.vue';
+import DemoComponentLifecycle from './demos/component-lifecycle.vue';
+import EdgeCase from './demos/edge-case.vue';
 
 export default {
   name: 'App',
@@ -52,6 +63,9 @@ export default {
     DemoEventHandler,
     DemoFormBinding,
     DemoComponentProps,
+    DemoComponentLazy,
+    DemoComponentLifecycle,
+    EdgeCase,
   },
 };
 </script>

@@ -34,12 +34,30 @@
       <div>* inheritAttrs: false 取消默认行为</div>
       <div>* 使用 $attrs 访问所有传递属性</div>
     </div>
+
+    <h3>Required props</h3>
+    <div>
+      <RequiredProps attrString="这个必填，否则console会报错" />
+      <div>attrNumber 则可以不填</div>
+    </div>
+
+    <h3>自定义组件的 v-model</h3>
+    <div>
+      <CustomComponentModel
+        v-model="customValue"
+        @custom-input="onCustomInput"
+      />
+    </div>
+
+    <!-- // TODO slot -->
   </div>
 </template>
 
 <script>
+import CustomComponentModel from '../components/CustomComponentModel.vue';
 import InheritAttrs from '../components/InheritAttrs.vue';
 import InheritAttrsFalse from '../components/InheritAttrsFalse.vue';
+import RequiredProps from '../components/RequiredProps.vue';
 import UserProfile from '../components/UserProfile.vue';
 
 export default {
@@ -47,6 +65,8 @@ export default {
     UserProfile,
     InheritAttrs,
     InheritAttrsFalse,
+    RequiredProps,
+    CustomComponentModel,
   },
   name: 'DemoComponentProps',
   data() {
@@ -55,8 +75,18 @@ export default {
       data: {
         currentTime: new Date().toLocaleString(),
       },
+      customValue: '',
     };
   },
-  methods: {},
+  watch: {
+    customValue(val) {
+      console.log('customValue', val);
+    },
+  },
+  methods: {
+    onCustomInput(e) {
+      console.log('onCustomInput', e);
+    },
+  },
 };
 </script>

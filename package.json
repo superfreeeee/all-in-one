@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "prepare": "husky install",
-    "test": "pnpm --filter=all-in-one run test",
-    "test:coverage": "pnpm --filter=all-in-one run test:coverage",
+    "test": "pnpm --filter=* run test",
+    "test:coverage": "pnpm --filter=* run test:coverage",
+    "test:all-in-one": "pnpm --filter=* run test",
+    "test:all-in-one:coverage": "pnpm --filter=all-in-one run test:coverage",
     "typechecking": "pnpm --filter=all-in-one run typechecking"
   },
   "devDependencies": {
@@ -15,5 +17,5 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "packageManager": "pnpm@8.11.0"
+  "packageManager": "pnpm@8.14.1"
 }

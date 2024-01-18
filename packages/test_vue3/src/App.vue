@@ -4,6 +4,7 @@ import TheWelcome from './components/TheWelcome.vue';
 import ComputedAttr from './demos/ComputedAttr.vue';
 import LifecycleHooks from './demos/LifecycleHooks.vue';
 import ReactiveBase from './demos/ReactiveBase.vue';
+import WatchMode from './demos/WatchMode.vue';
 </script>
 
 <template>
@@ -18,7 +19,7 @@ import ReactiveBase from './demos/ReactiveBase.vue';
   <main>
     <TheWelcome />
   </main>
-  
+
   <!-- demo -->
 
   <!-- 响应式基础 -->
@@ -49,6 +50,9 @@ import ReactiveBase from './demos/ReactiveBase.vue';
 
   <!-- 生命周期钩子 -->
   <LifecycleHooks />
+
+  <!-- 侦听器 -->
+  <WatchMode />
 </template>
 
 <style scoped>

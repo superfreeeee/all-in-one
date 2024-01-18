@@ -1,9 +1,9 @@
-import { wait } from './wait';
+import { sleep } from './sleep';
 
-test('wait', async () => {
+test('sleep', async () => {
   const DELAY = 10;
   const start = Date.now();
-  await wait(DELAY);
+  await sleep(DELAY);
   const end = Date.now();
   expect(end - start).toBeGreaterThanOrEqual(DELAY);
 });

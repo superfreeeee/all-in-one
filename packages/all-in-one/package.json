@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "UNSET_COVERAGE=true jest --coverage -w 4",
-    "test:coverage": "jest --coverage -w 4",
+    "test": "jest -w 4",
+    "test:coverage": "UNSET_COVERAGE=true jest --coverage -w 4",
+    "test:coverage:all": "jest --coverage -w 4",
     "typechecking": "tsc --noEmit"
   },
   "keywords": [],

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "pnpm jest",
+    "test": "jest -w 4",
     "gen": "node generate"
   },
   "keywords": [],

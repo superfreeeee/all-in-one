@@ -2,7 +2,7 @@
   <div id="demo-watch-mode" class="demo">
     <h1>Demo: 侦听器</h1>
 
-    <h3>监听 ref</h3>
+    <h3>普通侦听 & 深层侦听 / ref & reactive 区别</h3>
     <div class="block">
       <div>count: {{ count }}</div>
       <button @click="count++">increment</button>
@@ -23,16 +23,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch, watchEffect } from 'vue';
 
 const count = ref(0);
 
+// 监听 ref 对象
 watch(count, () => {
   console.log('watch count', { count: count.value });
 });
 
 const counter = ref({ count: 0, inner: { count: 0 } });
 
+// 监听 reactive 对象
 const watchCounterValue = () => {
   console.log('重新监听 counter.value');
 
@@ -49,19 +51,35 @@ const watchAgain = () => {
   cancel = watchCounterValue();
 };
 
+// 深层监听
 watch(counter, () => {
   console.log('watch counter', { count: counter.value.count });
   console.log('counter 替换之后，之前的 watch counter.value 就无效了，点击 watch again 重新监听');
 });
 
+// getter 作为 deps
 watch(
   () => count.value,
   () => {
     console.log(
-      'watch count',
+      'watch getter: count.value',
       { count: count.value }, //
       '\n* 也可以直接给一个 getter 自动收集依赖',
+      '\n* immediate: true 会在 onMount 前执行一次',
     );
   },
+  // 带 options
+  { immediate: true },
 );
+
+watchEffect(() => {
+  console.log(
+    'watchEffect',
+    {
+      count: count.value,
+      counter: counter.value.count, // 需要经过至少一个 getter
+    }, //
+    '\n* 自动收集依赖所有依赖 + immediate: true 性质',
+  );
+});
 </script>

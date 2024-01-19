@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue';
 import TheWelcome from './components/TheWelcome.vue';
+import ComponentBasic from './demos/ComponentBasic.vue';
 import ComputedAttr from './demos/ComputedAttr.vue';
+import DataProvider from './demos/DataProvider.vue';
+import DomRef from './demos/DomRef.vue';
+import AsyncComponent from './demos/AsyncComponent.vue';
 import LifecycleHooks from './demos/LifecycleHooks.vue';
 import ReactiveBase from './demos/ReactiveBase.vue';
 import WatchMode from './demos/WatchMode.vue';
+import CustomDirectives from './demos/CustomDirectives.vue';
 </script>
 
 <template>
@@ -53,6 +58,21 @@ import WatchMode from './demos/WatchMode.vue';
 
   <!-- 侦听器 -->
   <WatchMode />
+
+  <!-- 模版引用 -->
+  <DomRef />
+
+  <!-- 组件基础 -->
+  <ComponentBasic :id="0" />
+
+  <!-- 依赖注入 -->
+  <DataProvider />
+
+  <!-- 动态组件 -->
+  <AsyncComponent />
+
+  <!-- 自定义指令 -->
+  <CustomDirectives />
 </template>
 
 <style scoped>

@@ -1,6 +1,13 @@
-import './main.css'
+import './main.css';
 
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from 'vue';
+import App from './App.vue';
+import { myPlugin } from './plugins/MyPlugin';
 
-createApp(App).mount('#app')
+const app = createApp(App);
+
+app.use(myPlugin, {
+  data: 'test-id',
+});
+
+app.mount('#app');

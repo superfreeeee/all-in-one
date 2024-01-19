@@ -55,6 +55,7 @@ Home Page: https://www.npmjs.com/
 | zustand                               <br/>                                                      | state-management |                                | production           |                 |
 | valtio                                <br/>                                                      | state-management |                                | production           |                 |
 | mobx                                  <br/>                                                      | state-management |                                | production           |                 |
+| pinia                                 <br/> https://pinia.vuejs.org/zh/                          | state-management | State management for vue 3     | production           |                 |
 |                                                                                                  |                  |                                |                      |                 |
 | axios                                 <br/> https://github.com/axios/axios                       | http-request     |                                | production           |                 |
 | urllib                                <br/>                                                      | http-request     |                                | production           |                 |

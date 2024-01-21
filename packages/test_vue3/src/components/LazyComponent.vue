@@ -5,7 +5,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-console.log('[LazyComponent] load LazyComponent, 懒加载');
+console.log('[LazyComponent] LazyComponent load 阶段');
 
-export default defineComponent({});
+export default defineComponent({
+  setup() {
+    console.log('[LazyComponent] LazyComponent setup 阶段');
+  },
+});
 </script>

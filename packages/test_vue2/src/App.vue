@@ -32,6 +32,7 @@
     <!-- 组件懒加载 -->
     <DemoComponentLazy />
 
+    <!-- 组件生命周期 -->
     <DemoComponentLifecycle />
 
     <!-- 边缘场景 -->

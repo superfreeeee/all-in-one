@@ -22,7 +22,7 @@
 
     <h3>Emits 自定义事件触发</h3>
     <div>
-      <div>* 使用 defineEmits 声明 emits</div>
+      <div>* 使用 defineEmits 声明 emit</div>
       <div>* 使用范型约束 emit 事件类型</div>
       <div>* 使用 options 配置校验函数</div>
     </div>

@@ -12,13 +12,13 @@ function raiseDuplicateQuestion(cur) {
 console.log('> generate leetcode');
 
 const args = process.argv.slice(2);
+const [num, funcName] = args;
 
 // ========== validate args ==========
 // num + name
 if (args.length !== 2) {
   raiseInvalidArgs();
 }
-const [num, funcName] = args;
 
 // num is number
 if (isNaN(Number(num))) {

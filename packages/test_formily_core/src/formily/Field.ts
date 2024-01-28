@@ -1,4 +1,4 @@
-import { Form, createForm } from '@formily/core';
+import { Field, Form, GeneralField, VoidField, createForm, isDataField } from '@formily/core';
 import { examplesFactory } from '../utils/example';
 import { logGroup } from '../utils/log';
 
@@ -16,14 +16,20 @@ const testCreation = (form: Form) => {
       const arrayField = form.createArrayField({ name: 'creation.arrayField' });
       const objectField = form.createObjectField({ name: 'creation.objectField' });
       const voidField = form.createVoidField({ name: 'creation.voidField' });
-      console.log('field        :', field);
-      console.log('arrayField   :', arrayField);
-      console.log('objectField  :', objectField);
-      console.log('voidField    :', voidField);
+      outputGeneralFieldState(field);
+      outputGeneralFieldState(arrayField);
+      outputGeneralFieldState(objectField);
+      outputGeneralFieldState(voidField);
 
       const fields = form.fields;
-      console.log('fields                    :', fields);
-      console.log('fields.creation           :', fields.creation);
+      console.log(
+        'fields                    :', //
+        fields,
+      );
+      console.log(
+        'fields.creation           :', //
+        fields.creation,
+      );
       console.log(
         "fields['creation.field']  :",
         fields['creation.field'],
@@ -36,6 +42,48 @@ const testCreation = (form: Form) => {
       // wrong syntax
       // console.log(form.query('creation*').map());
       console.log('query=creation.*', form.query('creation.*').map());
+    },
+    false,
+  );
+};
+
+const outputGeneralFieldState = (field: GeneralField) => {
+  if (isDataField(field)) {
+    outputFieldState(field);
+  } else {
+    outputVoidFieldState(field);
+  }
+};
+
+const outputFieldState = (field: Field) => {
+  logGroup(
+    'Field state',
+    () => {
+      console.log('address      :', field.address.toString(), field.address);
+      console.log('path         :', field.path.toString(), field.path);
+      console.log('title        :', field.title);
+      console.log('description  :', field.description);
+
+      console.log('initialized  :', field.initialized);
+      console.log('mounted      :', field.mounted);
+      console.log('unmounted    :', field.unmounted);
+    },
+    false,
+  );
+};
+
+const outputVoidFieldState = (field: VoidField) => {
+  logGroup(
+    'VoidField state',
+    () => {
+      console.log('address      :', field.address.toString(), field.address);
+      console.log('path         :', field.path.toString(), field.path);
+      console.log('title        :', field.title);
+      console.log('description  :', field.description);
+
+      console.log('initialized  :', field.initialized);
+      console.log('mounted      :', field.mounted);
+      console.log('unmounted    :', field.unmounted);
     },
     false,
   );

@@ -13,7 +13,7 @@
 <script setup lang="ts">
 // import { LazyComponent } from '@/components';
 // 同步加载组件
-import LazyComponent from '@/components/LazyComponent.vue';
+import LazyComponent from '../components/LazyComponent.vue';
 
 console.log('LazyComponent', LazyComponent);
 </script>

@@ -1,1 +1,1 @@
-// entry
+export { logGroup } from './common-utils';

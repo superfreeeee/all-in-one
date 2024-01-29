@@ -66,7 +66,7 @@ export const createGroupLog = (group?: string) => {
 };
 
 /**
- * console.group
+ * short cut for console.group
  * @param cb
  * @param collapse
  */

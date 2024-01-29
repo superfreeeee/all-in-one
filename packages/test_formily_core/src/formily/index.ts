@@ -2,10 +2,15 @@ import { Form, GeneralField, createForm, isField } from '@formily/core';
 import { cloneDeep } from 'lodash-es';
 import { pathExamples } from './Path';
 import { fieldExamples } from './Field';
+import { tmpExamples } from './tmp';
+import { formEffectsExamples } from './FormEffects';
 
 export const formilyEntry = () => {
-  pathExamples();
-  fieldExamples();
+  // pathExamples();
+  // fieldExamples();
+  formEffectsExamples();
+
+  // tmpExamples();
 };
 
 const formExamples = () => {

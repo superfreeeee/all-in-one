@@ -1,0 +1,17 @@
+{
+  "name": "test_pnpm",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "lodash-es": "^4.17.21"
+  },
+  "pnpm": {
+    "overrides": {
+      "lodash-es": "$lodash-es"
+    }
+  }
+}

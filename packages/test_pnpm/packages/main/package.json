@@ -9,6 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "lodash-es": "^3.10.1"
+    "@test-pnpm/lib": "workspace:^",
+    "lodash-es": "^4.17.21"
   }
 }

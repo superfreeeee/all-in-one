@@ -1,0 +1,18 @@
+{
+  "name": "test_electron",
+  "version": "1.0.0",
+  "description": "Testing manual building electron",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "test": "node index.js"
+  },
+  "keywords": [],
+  "author": "superfree",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.2.1",
+    "electron-builder": "^24.12.0"
+  }
+}

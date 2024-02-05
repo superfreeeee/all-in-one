@@ -5,8 +5,7 @@
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder",
-    "test": "node index.js"
+    "build": "electron-builder"
   },
   "keywords": [],
   "author": "superfree",

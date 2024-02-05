@@ -18,3 +18,11 @@
 - mirror 地址设置
 
 https://segmentfault.com/a/1190000040356146
+
+- `.npmrc` 变量设置不生效问题
+
+https://www.cnblogs.com/w4ngzhen/p/17425229.html
+
+- `proxyconnect tcp: dial tcp :0` 问题
+
+https://github.com/develar/app-builder/issues/75

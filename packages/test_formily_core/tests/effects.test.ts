@@ -280,23 +280,33 @@ describe('field effects tests', () => {
    * field 创建前(createField) 使用 addEffects 监听
    */
   test('onFieldInit before field create', () => {
+    recorder.record('before addEffects');
+
     let initField: GeneralField | null = null;
-    expectStep(1);
     form.addEffects(0, () => {
-      expectStep(2); // addEffects 是同步的
+      recorder.record('addEffects start');
 
       onFieldInit('a', (field) => {
         /**
          * onFieldInit 在 createField 后触发
          */
-        expectStep(4);
+        recorder.record(`onFieldInit, path=${field.path}`);
         initField = field;
       });
     });
 
-    expectStep(3); // 3: createField
+    recorder.record('after addEffects');
+
     const field = form.createField({ name: 'a' });
     expect(initField).toBe(field);
+
+    // recorder.show();
+    recorder.expect([
+      'before addEffects', //
+      'addEffects start',
+      'after addEffects',
+      'onFieldInit, path=a',
+    ]);
   });
 
   /**

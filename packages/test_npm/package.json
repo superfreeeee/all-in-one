@@ -1,0 +1,18 @@
+{
+  "name": "test_npm",
+  "version": "1.0.0",
+  "description": "## pre, post script",
+  "main": "index.js",
+  "scripts": {
+    "preecho": "echo 'before script:echo'",
+    "echo": "echo 'Run script:echo'",
+    "postecho": "echo 'after script:echo'",
+    "compile": "echo 'Run script:compile'",
+    "compile:watch": "echo 'Run script:compile_watch'",
+    "postinstall": "npm run compile",
+    "dev": "npm run compile:watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}

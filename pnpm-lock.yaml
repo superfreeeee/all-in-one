@@ -292,6 +292,8 @@ importers:
         specifier: ^29.7.0
         version: 29.7.0
 
+  packages/test_npm: {}
+
   packages/test_pinia:
     dependencies:
       pinia:

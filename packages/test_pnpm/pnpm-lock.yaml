@@ -26,9 +26,6 @@ importers:
       '@test-pnpm/lib':
         specifier: workspace:^
         version: link:../lib
-      lib-alias:
-        specifier: workspace:../lib
-        version: link:../lib
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21

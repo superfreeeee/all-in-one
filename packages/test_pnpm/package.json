@@ -2,7 +2,12 @@
   "name": "test_pnpm",
   "version": "1.0.0",
   "description": "",
-  "scripts": {},
+  "scripts": {
+    "preinstall": "echo 'before install'",
+    "postinstall": "echo 'after install'",
+    "prepare": "echo 'Run prepare'",
+    "test": "echo 'Run test'"
+  },
   "keywords": [],
   "author": "",
   "license": "MIT",

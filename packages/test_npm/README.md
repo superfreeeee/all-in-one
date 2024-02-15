@@ -2,6 +2,8 @@
 
 ## pre, post script
 
+https://docs.npmjs.com/cli/v10/using-npm/scripts#pre--post-scripts
+
 scripts 脚本命令为 `pre_`、`post_` 前缀的会作为目标命令的前置、后置生命周期钩子
 
 ## demo: echo 命令

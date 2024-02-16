@@ -1,8 +1,6 @@
 import { describe, test, expect } from 'vitest';
 import { createForm } from '@formily/core';
 
-// describe('form validate tests', () => {});
-
 describe('field validate tests', () => {
   /**
    * 基础 validator demo

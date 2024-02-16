@@ -45,16 +45,20 @@ export const createGlobalStepChecker = () => {
  * 使用 push 的方式记录
  */
 export const createStepRecorder = () => {
-  let steps: string[] = [];
+  let steps: any[] = [];
 
-  const record = (step: string) => steps.push(step);
+  const record = (step: any) => {
+    steps.push(step);
+  };
 
   const show = () => {
     console.log('> steps', steps);
   };
 
-  const _expect = (expected: string[]) => {
+  const _expect = (expected: any[]) => {
     expect(steps).toEqual(expected);
+    // expect 后自动清理
+    reset();
   };
 
   const reset = () => {

@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "自定义 chrome 插件名",
+  "description": "插件管理内可以看到 description 描述",
+  "version": "1.0",
+  "action": {
+    "default_icon": {
+      "16": "assets/icon-16.png",
+      "32": "assets/icon-32.png",
+      "48": "assets/icon-48.png",
+      "128": "assets/icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "assets/icon-16.png",
+    "32": "assets/icon-32.png",
+    "48": "assets/icon-48.png",
+    "128": "assets/icon-128.png"
+  },
+  "content_scripts": [
+    {
+      "js": ["scripts/content.js"],
+      "matches": [
+        "https://developer.chrome.com/docs/extensions/*",
+        "https://developer.chrome.com/docs/webstore/*"
+      ]
+    }
+  ],
+
+  "permissions": ["activeTab", "scripting", "storage", "alarms"],
+  "host_permissions": ["https://extension-tips.glitch.me/*"],
+
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "minimum_chrome_version": "102",
+  "omnibox": {
+    "keyword": "api"
+  },
+
+  "devtools_page": "devtools/index.html"
+}

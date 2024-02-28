@@ -4,6 +4,10 @@
 
 https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world?hl=zh-tw
 
+- 使用 vite 开发 chrome extension
+
+https://ithelp.ithome.com.tw/articles/10293835
+
 # Core concepts
 
 ## icons
@@ -20,5 +24,3 @@ https://developer.chrome.com/docs/extensions/get-started/tutorial/scripts-on-eve
 可阅读并修改目标页面，内容加载时执行，SPA 不会重新触发
 
 ## background service worker
-
-

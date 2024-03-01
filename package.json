@@ -7,7 +7,7 @@
     "prepare": "husky install",
     "test": "pnpm --filter=* run test",
     "test:coverage": "pnpm --filter=* run test:coverage",
-    "test:all-in-one": "pnpm --filter=* run test",
+    "test:all-in-one": "pnpm --filter=all-in-one run test",
     "test:all-in-one:coverage": "pnpm --filter=all-in-one run test:coverage",
     "typechecking": "pnpm --filter=all-in-one run typechecking"
   },

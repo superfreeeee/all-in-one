@@ -1,3 +1,4 @@
 packages:
   - 'packages/*'
+  - 'packages/es-sniper/server'
   - '!packages/test_pnpm'

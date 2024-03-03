@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "compile": "vite build",
     "watch": "vite build --watch",
-    "test": "vitest --passWithNoTests --coverage"
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest --passWithNoTests --coverage"
   },
   "keywords": [],
   "author": "",

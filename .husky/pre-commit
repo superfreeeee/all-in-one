@@ -2,7 +2,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 # for packages
-pnpm --filter=all-in-one --filter=test_formily_core --filter=leetcode_js --filter=test_js run test
+pnpm --filter=all-in-one --filter=test_formily_core --filter=leetcode_js --filter=test_js --filter=es-snipper-server run test
 pnpm run typechecking
 
 # for crates

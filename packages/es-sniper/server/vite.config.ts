@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import path from 'path';
 import { defineConfig } from 'vite';
 
@@ -6,7 +7,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, './src/index.ts'),
       fileName: 'index',
-      formats: ['cjs'],
+      formats: ['es', 'cjs'],
     },
 
     sourcemap: true,
@@ -19,4 +20,5 @@ export default defineConfig({
       ],
     },
   },
+  test: {},
 });

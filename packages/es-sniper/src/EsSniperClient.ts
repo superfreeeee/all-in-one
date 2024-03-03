@@ -8,7 +8,7 @@ import {
 } from 'vscode-languageclient/node';
 import { EsSniperCodeLensProvider, ScopeLen } from './EsSniperCodeLensProvider';
 
-const SERVER_PATH = path.join('server/dist/index.js');
+const SERVER_PATH = path.join('server/dist/index.cjs');
 
 const SUPPORT_LANGUAGES = [
   'javascript',

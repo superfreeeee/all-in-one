@@ -15,8 +15,9 @@
         "${workspaceFolder}/dist/**/*.js",
         "${workspaceFolder}/server/dist/**/*.js"
       ],
-      "autoAttachChildProcesses": true,
-      "preLaunchTask": "${defaultBuildTask}"
+      "autoAttachChildProcesses": true
+      // TODO multiple watch for preLaunch config
+      // "preLaunchTask": "${defaultBuildTask}"
       // "preLaunchTask": "task: extension build"
     }
   ]

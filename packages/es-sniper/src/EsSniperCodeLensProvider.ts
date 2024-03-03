@@ -8,22 +8,23 @@ import {
   TextDocument,
 } from 'vscode';
 
-type AnalyzeResult = {
+export type ScopeLen = {
   line: number;
-  depth: number;
-  localCount: number;
+  depth: number; // 0-based
+  local: number;
 };
 
 export class EsSniperCodeLensProvider implements CodeLensProvider {
-  private lensMap = new WeakMap<TextDocument, AnalyzeResult[]>();
   private _onDidChangeCodeLenses = new EventEmitter<void>();
   readonly onDidChangeCodeLenses = this._onDidChangeCodeLenses.event;
+
+  private scopeLensMap = new WeakMap<TextDocument, ScopeLen[]>();
 
   provideCodeLenses(
     document: TextDocument,
     token: CancellationToken,
   ): ProviderResult<CodeLens[]> {
-    const lens = this.lensMap.get(document);
+    const lens = this.scopeLensMap.get(document);
     // console.log('[EsSniperCodeLensProvider] provideCodeLenses', lens);
 
     if (!lens) {
@@ -36,22 +37,16 @@ export class EsSniperCodeLensProvider implements CodeLensProvider {
       const range = new Range(len.line - 1, 0, len.line, 0);
 
       codeLens.push(
-        new CodeLens(range, {
-          command: '',
-          title: `depth: ${len.depth}`,
-        }),
-        new CodeLens(range, {
-          command: '',
-          title: `local: ${len.localCount}`,
-        }),
+        new CodeLens(range, { command: '', title: `depth: ${len.depth}` }),
+        new CodeLens(range, { command: '', title: `local: ${len.local}` }),
       );
     });
 
     return codeLens;
   }
 
-  updateLens(document: TextDocument, lens) {
-    this.lensMap.set(document, lens);
+  updateScopeLens(document: TextDocument, scopeLens: ScopeLen[]) {
+    this.scopeLensMap.set(document, scopeLens);
     this._onDidChangeCodeLenses.fire();
   }
 }

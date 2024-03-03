@@ -6,9 +6,9 @@ import {
   isFunctionExpression,
   isFunctionDeclaration,
   isRestElement,
-  Identifier,
-  RestElement,
-  Pattern,
+  type Identifier,
+  type RestElement,
+  type Pattern,
   isAssignmentPattern,
   isObjectPattern,
   isArrayPattern,
@@ -17,13 +17,13 @@ import {
   isForXStatement,
   isForStatement,
   isVariableDeclaration,
-  VariableDeclaration,
-  LVal,
-  PatternLike,
-  BlockStatement,
+  type VariableDeclaration,
+  type LVal,
+  type PatternLike,
+  type BlockStatement,
 } from '@babel/types';
 
-export type VariableForScope = {
+export type ScopeVariable = {
   id: string;
   // 本地变量 / 函数参数
   // ! 这里就不区分 var 还是 func
@@ -34,18 +34,22 @@ export type Scope = {
   type: 'program' | 'block' | 'function';
   node: Node | null;
   nodeExtra: Record<string, any>;
-  variables: VariableForScope[];
+  variables: ScopeVariable[];
   children: Scope[];
   parent: Scope | null;
+};
+
+export type ScopeJSON = Pick<Scope, 'type' | 'nodeExtra' | 'variables'> & {
+  children: ScopeJSON[];
 };
 
 /**
  * 作用域解析器
  */
-export class ScopeManager {
+export class ScopeAnalyzer {
   readonly ast: Node;
 
-  readonly rootScope: Scope;
+  readonly root: Scope;
 
   private currentScope: Scope;
 
@@ -55,14 +59,14 @@ export class ScopeManager {
    * @returns
    */
   static parse(ast: Node): Scope {
-    const manager = new ScopeManager(ast);
-    return manager.rootScope;
+    const manager = new ScopeAnalyzer(ast);
+    return manager.root;
   }
 
   constructor(ast: Node) {
     this.ast = ast;
-    this.rootScope = this.initRootScope();
-    this.currentScope = this.rootScope;
+    this.root = this.initRootScope();
+    this.currentScope = this.root;
 
     this.parse();
   }
@@ -204,7 +208,7 @@ export class ScopeManager {
    */
   private parseVariable(
     node: Identifier | RestElement | Pattern,
-    source: VariableForScope['source'],
+    source: ScopeVariable['source'],
   ) {
     // 1. Identifier => 简单参数
     if (isIdentifier(node)) {
@@ -279,7 +283,7 @@ export class ScopeManager {
    * @param node
    * @param source
    */
-  private parseLVal(node: LVal, source: VariableForScope['source']) {
+  private parseLVal(node: LVal, source: ScopeVariable['source']) {
     if (isIdentifier(node) || isRestElement(node) || isPattern(node)) {
       this.parseVariable(node, source);
       return;
@@ -376,14 +380,24 @@ export class ScopeManager {
     return false;
   }
 
-  createMinify() {
-    return this.createMinifyScope(this.rootScope);
+  /**
+   * transform to non-curly json-object
+   */
+  toJSON(): ScopeJSON {
+    return this.scopeToJSON(this.root);
   }
 
-  private createMinifyScope(base: Scope) {
-    return {
-      variables: base.variables.map((variable) => variable.id),
-      children: base.children.map((child) => this.createMinifyScope(child)),
+  private scopeToJSON(scope: Scope): ScopeJSON {
+    const { type, nodeExtra, variables, children } = scope;
+    const childrenJSON = children.map((child) => this.scopeToJSON(child));
+
+    const scopeJSON: ScopeJSON = {
+      type,
+      nodeExtra,
+      variables,
+      children: childrenJSON,
     };
+
+    return scopeJSON;
   }
 }

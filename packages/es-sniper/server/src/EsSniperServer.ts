@@ -8,7 +8,7 @@ import {
 } from 'vscode-languageserver/node';
 
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { parseCode, throttledParseCode } from './analyzer';
+import { scopeToLens, throttledAnalyzeCode } from './analyzer';
 
 export const createEsSniperServer = () => {
   console.log('[EsSniperServer] create start');
@@ -39,6 +39,16 @@ export const createEsSniperServer = () => {
     console.log('[EsSniperServer.connection] onInitialized');
   });
 
+  /**
+   * 分析代码
+   * 1. 作用域信息
+   * TODO 2. 函数复杂度度量（消费）
+   *
+   * TODO 针对相同 textDocument 缓存
+   *
+   * @param event
+   * @returns
+   */
   const analyze = (event: TextDocumentChangeEvent<TextDocument>) => {
     const { document } = event;
     console.log('  uri:', document.uri);
@@ -47,10 +57,14 @@ export const createEsSniperServer = () => {
 
     const content = document.getText();
 
-    const result = throttledParseCode(content);
-    if (result) {
-      connection.sendNotification('scopeAnalyze', result);
-    }
+    const result = throttledAnalyzeCode(content);
+    if (!result) return; // throttle return
+
+    const scopeLens = scopeToLens(result.scope);
+    connection.sendNotification('scopeLens', {
+      documentUri: document.uri,
+      scopeLens,
+    });
   };
 
   /**
@@ -58,13 +72,11 @@ export const createEsSniperServer = () => {
    */
   documents.onDidOpen((event) => {
     console.log('[EsSniperServer.documents] onDidOpen');
-
     analyze(event);
   });
 
   documents.onDidChangeContent((event) => {
     console.log('[EsSniperServer.documents] onDidChangeContent');
-
     analyze(event);
   });
 

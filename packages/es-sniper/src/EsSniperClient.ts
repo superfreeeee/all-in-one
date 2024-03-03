@@ -1,12 +1,12 @@
 import path from 'path';
-import { ExtensionContext, languages, window } from 'vscode';
+import { ExtensionContext, languages, workspace } from 'vscode';
 import {
   LanguageClient,
   LanguageClientOptions,
   ServerOptions,
   TransportKind,
 } from 'vscode-languageclient/node';
-import { EsSniperCodeLensProvider } from './EsSniperCodeLensProvider';
+import { EsSniperCodeLensProvider, ScopeLen } from './EsSniperCodeLensProvider';
 
 const SERVER_PATH = path.join('server/dist/index.js');
 
@@ -61,16 +61,13 @@ export class EsSniperClient {
       clientOptions,
     );
 
-    client.onNotification('scopeAnalyze', (event) => {
-      console.log('[EsSniperClient] scopeAnalyze', event);
-      if (window.activeTextEditor) {
-        this.codeLensProvider.updateLens(
-          window.activeTextEditor.document,
-          event.collections,
-        );
-      }
-      console.log();
-    });
+    client.onNotification(
+      'scopeLens',
+      (event: { documentUri: string; scopeLens: ScopeLen[] }) => {
+        console.log('[EsSniperClient] scopeLens', event);
+        this.handleScopeLens(event);
+      },
+    );
 
     return client;
   }
@@ -83,6 +80,31 @@ export class EsSniperClient {
     );
 
     return codeLensProvider;
+  }
+
+  /**
+   * EsSniperClient Notification: scopeLens 事件
+   * @param event
+   */
+  private handleScopeLens(event: {
+    documentUri: string;
+    scopeLens: ScopeLen[];
+  }) {
+    const { documentUri, scopeLens } = event;
+
+    const targetDocument = workspace.textDocuments.find((document) => {
+      return document.uri.toString() === documentUri;
+    });
+
+    if (!targetDocument) {
+      console.error(
+        '[EsSniperClient] scopeLens document not found',
+        event.documentUri,
+      );
+      return;
+    }
+
+    this.codeLensProvider.updateScopeLens(targetDocument, scopeLens);
   }
 
   start() {

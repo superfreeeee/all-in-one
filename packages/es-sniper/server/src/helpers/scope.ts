@@ -22,13 +22,14 @@ import {
   type PatternLike,
   type BlockStatement,
   isExpression,
+  type ImportDeclaration,
 } from '@babel/types';
 
 export type ScopeVariable = {
   id: string;
   // 本地变量 / 函数参数
   // ! 这里就不区分 var 还是 func
-  source: 'local' | 'param';
+  source: 'local' | 'param' | 'import';
 };
 
 export type Scope = {
@@ -172,6 +173,13 @@ export class ScopeAnalyzer {
        */
       VariableDeclaration: (path) => {
         this.parseVariableDeclaration(path.node);
+      },
+      /**
+       * Import statement
+       * @param path
+       */
+      ImportDeclaration: (path) => {
+        this.parseImportDeclaration(path.node);
       },
       /**
        * 函数声明
@@ -346,6 +354,19 @@ export class ScopeAnalyzer {
     }
 
     return false;
+  }
+
+  /**
+   * 收集 import 变量
+   * @param node
+   */
+  private parseImportDeclaration(node: ImportDeclaration) {
+    for (const spec of node.specifiers) {
+      this.currentScope.variables.push({
+        id: spec.local.name,
+        source: 'import',
+      });
+    }
   }
 
   static toJSON(scope: Scope) {

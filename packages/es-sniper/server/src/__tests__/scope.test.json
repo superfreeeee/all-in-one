@@ -3,7 +3,43 @@
   "nodeExtra": {},
   "variables": [
     {
+      "id": "describe",
+      "source": "import"
+    },
+    {
+      "id": "expect",
+      "source": "import"
+    },
+    {
+      "id": "test",
+      "source": "import"
+    },
+    {
+      "id": "path",
+      "source": "import"
+    },
+    {
+      "id": "fs",
+      "source": "import"
+    },
+    {
+      "id": "parser",
+      "source": "import"
+    },
+    {
+      "id": "ScopeAnalyzer",
+      "source": "import"
+    },
+    {
+      "id": "ScopeVariable",
+      "source": "import"
+    },
+    {
       "id": "parseFile",
+      "source": "local"
+    },
+    {
+      "id": "createVarCheckTests",
       "source": "local"
     }
   ],
@@ -40,76 +76,55 @@
       },
       "variables": [
         {
-          "id": "TEST_CASE_GLOBAL_1",
-          "source": "local"
+          "id": "options",
+          "source": "param"
         },
         {
-          "id": "TEST_CASE_GLOBAL_2",
-          "source": "local"
-        },
-        {
-          "id": "TEST_CASE_GLOBAL_3",
-          "source": "local"
-        },
-        {
-          "id": "TEST_CASE_GLOBAL_4",
+          "id": "option",
           "source": "local"
         }
       ],
       "children": [
         {
-          "type": "function",
+          "type": "block",
           "nodeExtra": {
-            "type": "ArrowFunctionExpression"
+            "type": "ForOfStatement"
           },
           "variables": [
             {
-              "id": "scope",
+              "id": "option",
               "source": "local"
-            }
-          ],
-          "children": []
-        },
-        {
-          "type": "function",
-          "nodeExtra": {
-            "type": "ArrowFunctionExpression"
-          },
-          "variables": [
+            },
             {
-              "id": "scope",
+              "id": "testName",
               "source": "local"
             }
           ],
-          "children": []
-        },
-        {
-          "type": "function",
-          "nodeExtra": {
-            "type": "ArrowFunctionExpression"
-          },
-          "variables": [
+          "children": [
             {
-              "id": "scope",
-              "source": "local"
+              "type": "function",
+              "nodeExtra": {
+                "type": "ArrowFunctionExpression"
+              },
+              "variables": [
+                {
+                  "id": "scope",
+                  "source": "local"
+                }
+              ],
+              "children": []
             }
-          ],
-          "children": []
-        },
-        {
-          "type": "function",
-          "nodeExtra": {
-            "type": "ArrowFunctionExpression"
-          },
-          "variables": [
-            {
-              "id": "scope",
-              "source": "local"
-            }
-          ],
-          "children": []
+          ]
         }
       ]
+    },
+    {
+      "type": "function",
+      "nodeExtra": {
+        "type": "ArrowFunctionExpression"
+      },
+      "variables": [],
+      "children": []
     },
     {
       "type": "function",

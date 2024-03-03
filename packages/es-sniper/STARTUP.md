@@ -1,4 +1,4 @@
-# Development invoke
+# Get Started for dev
 
 1. 运行 client + server 的 watch 启动编译（需要开启两个 shell）
 

@@ -3,7 +3,7 @@ import { describe, expect, test } from 'vitest';
 import path from 'path';
 import fs from 'fs';
 import parser from '@babel/parser';
-import { ScopeAnalyzer } from '../helpers/scope';
+import { ScopeAnalyzer, ScopeVariable } from '../helpers/scope';
 
 const parseFile = (filePath: string) => {
   const code = fs.readFileSync(filePath).toString();
@@ -15,36 +15,55 @@ const parseFile = (filePath: string) => {
 
   const scope = ScopeAnalyzer.parse(ast);
 
-  return scope;
+  return { code, ast, scope };
+};
+
+type VarCheckTestOption = {
+  source: string;
+  variables: ScopeVariable[];
+};
+
+const createVarCheckTests = (options: VarCheckTestOption[]) => {
+  for (const option of options) {
+    const testName = path.basename(option.source);
+
+    test(testName, () => {
+      const { scope } = parseFile(option.source);
+      expect(scope.variables).toEqual(option.variables);
+    });
+  }
 };
 
 describe('global scope tests', () => {
-  const TEST_CASE_GLOBAL_1 = path.resolve(__dirname, './scope-case/global-var.ts');
-  const TEST_CASE_GLOBAL_2 = path.resolve(__dirname, './scope-case/global-func.ts');
-  const TEST_CASE_GLOBAL_3 = path.resolve(__dirname, './scope-case/global-func-arrow.ts');
-  const TEST_CASE_GLOBAL_4 = path.resolve(__dirname, './scope-case/global-func-arrow-no-body.ts');
-
   // 全局變量測試用例
-  test('global-var', () => {
-    const scope = parseFile(TEST_CASE_GLOBAL_1);
-    // console.log((scope as any).node.program.body[1])
-    expect(scope.variables).toEqual([{ id: 'localVar', source: 'local' }]);
-  });
-
-  test('global-func', () => {
-    const scope = parseFile(TEST_CASE_GLOBAL_2);
-    expect(scope.variables).toEqual([{ id: 'localFunc', source: 'local' }]);
-  });
-
-  test('global-func-arrow', () => {
-    const scope = parseFile(TEST_CASE_GLOBAL_3);
-    expect(scope.variables).toEqual([{ id: 'localFunc', source: 'local' }]);
-  });
-
-  test('global-func-arrow-no-body', () => {
-    const scope = parseFile(TEST_CASE_GLOBAL_4);
-    expect(scope.variables).toEqual([{ id: 'localFunc', source: 'local' }]);
-  });
+  createVarCheckTests([
+    {
+      source: path.resolve(__dirname, './scope-case/global-var.ts'),
+      variables: [{ id: 'localVar', source: 'local' }],
+    },
+    {
+      source: path.resolve(__dirname, './scope-case/global-func.ts'),
+      variables: [{ id: 'localFunc', source: 'local' }],
+    },
+    {
+      source: path.resolve(__dirname, './scope-case/global-func-arrow.ts'),
+      variables: [{ id: 'localFunc', source: 'local' }],
+    },
+    {
+      source: path.resolve(__dirname, './scope-case/global-func-arrow-no-body.ts'),
+      variables: [{ id: 'localFunc', source: 'local' }],
+    },
+    {
+      source: path.resolve(__dirname, './scope-case/global-var-import.ts'),
+      variables: [
+        { source: 'import', id: 'addDefault' },
+        { source: 'import', id: 'utils' },
+        { source: 'import', id: 'addDefault2' },
+        { source: 'import', id: 'add' },
+        { source: 'import', id: 'addAlias' },
+      ],
+    },
+  ]);
 });
 
 describe('local scope tests', () => {
@@ -58,7 +77,7 @@ describe('local scope tests', () => {
 
   // 局部變量測試用例
   test('local-var', () => {
-    const scope = parseFile(TEST_CASE_LOCAL_1);
+    const { scope } = parseFile(TEST_CASE_LOCAL_1);
     expect(scope.children).toMatchObject([
       {
         type: 'block',
@@ -71,7 +90,7 @@ describe('local scope tests', () => {
   });
 
   test('local-param', () => {
-    const scope = parseFile(TEST_CASE_LOCAL_2);
+    const { scope } = parseFile(TEST_CASE_LOCAL_2);
     expect(scope.children).toMatchObject([
       {
         type: 'function',
@@ -85,7 +104,7 @@ describe('local scope tests', () => {
   });
 
   test('local-param-arrow', () => {
-    const scope = parseFile(TEST_CASE_LOCAL_3);
+    const { scope } = parseFile(TEST_CASE_LOCAL_3);
     expect(scope.children).toMatchObject([
       {
         type: 'function',
@@ -98,7 +117,7 @@ describe('local scope tests', () => {
   });
 
   test('local-param-arrow-no-body', () => {
-    const scope = parseFile(TEST_CASE_LOCAL_4);
+    const { scope } = parseFile(TEST_CASE_LOCAL_4);
     expect(scope.children).toMatchObject([
       {
         type: 'function',
@@ -111,7 +130,7 @@ describe('local scope tests', () => {
   });
 
   test('local-param-complex', () => {
-    const scope = parseFile(TEST_CASE_LOCAL_5);
+    const { scope } = parseFile(TEST_CASE_LOCAL_5);
     expect(scope.children).toMatchObject([
       {
         type: 'function',
@@ -135,7 +154,7 @@ describe('local scope tests', () => {
   });
 
   test('local-var-for', () => {
-    const scope = parseFile(TEST_CASE_LOCAL_6);
+    const { scope } = parseFile(TEST_CASE_LOCAL_6);
     expect(scope.children).toMatchObject([
       {
         type: 'block',
@@ -151,7 +170,7 @@ describe('local scope tests', () => {
   });
 
   test('local-var-for-x', () => {
-    const scope = parseFile(TEST_CASE_LOCAL_7);
+    const { scope } = parseFile(TEST_CASE_LOCAL_7);
     expect(scope.children).toMatchObject([
       {
         type: 'block',
@@ -179,7 +198,7 @@ describe('toJSON test', () => {
   const TEST_CASE_SELF = path.resolve(__dirname, './scope.test.ts');
 
   test('self toJSON', () => {
-    const scope = parseFile(TEST_CASE_SELF);
+    const { scope } = parseFile(TEST_CASE_SELF);
     const json = ScopeAnalyzer.toJSON(scope);
     fs.writeFileSync(path.resolve(__dirname, 'scope.test.json'), JSON.stringify(json, null, 2));
   });

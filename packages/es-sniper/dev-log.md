@@ -4,7 +4,7 @@
 
 ## core features
 
-- [ ] 解析作用域
+- ~~[x] 解析作用域~~ => 直接基于 @babel/traverse 解析即可
   - [x] 解析作用域
     - [x] ArrowFunctionExpression 处理：没有 block 的情况不会经过 BlockStatment => 增加无 body 情况的参数解析
   - [x] 提取变量信息
@@ -27,8 +27,10 @@
 
 - [ ] 解析函数复杂度
   - [ ] 变量消费统计：local、closure、import、global
-  - [ ] 校验是否为纯函数
-    - [ ] 区分 get / set 纯函数
+    - [ ] 区分 import, global
+    - [ ] 考虑是否合并作用域 + 函数分析
+  - ~~[ ] 校验是否为纯函数~~ => 代码结构上 LVal 较难分析是否修改
+    - ~~[ ] 区分 get / set 纯函数~~
 
 - [ ] 作用域嵌套深度计算
   - [ ] 保留祖先作用域信息

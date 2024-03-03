@@ -3,7 +3,7 @@
     "composite": true,
 
     "target": "es2020",
-    "lib": ["es2020"],
+    "lib": ["es2020", "DOM"],
     "module": "CommonJS",
     "moduleResolution": "node",
     "sourceMap": true,
@@ -12,6 +12,7 @@
     "noUnusedParameters": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
+    "jsx": "preserve",
     "outDir": "dist",
     "baseUrl": ".",
     "rootDir": "src"

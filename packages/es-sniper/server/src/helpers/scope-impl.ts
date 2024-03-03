@@ -1,3 +1,7 @@
+/**
+ * @deprecated
+ * ! 吐了，@babel/traverse 里面都已经有了。。。
+ */
 import traverse, { NodePath } from '@babel/traverse';
 import {
   type Node,
@@ -34,7 +38,7 @@ export type ScopeVariable = {
 
 export type Scope = {
   type: 'program' | 'block' | 'function';
-  node: Node | null;
+  node: Node;
   nodeExtra: Record<string, any>;
   variables: ScopeVariable[];
   children: Scope[];
@@ -51,28 +55,29 @@ export class ScopeAnalyzerError extends Error {}
  * 作用域解析器
  */
 export class ScopeAnalyzer {
-  readonly ast: Node;
+  private readonly _ast: Node;
 
-  readonly root: Scope;
+  private readonly _root: Scope;
 
   private currentScope: Scope;
 
-  /**
-   * 静态方法
-   * @param ast
-   * @returns
-   */
-  static parse(ast: Node): Scope {
-    const manager = new ScopeAnalyzer(ast);
-    return manager.root;
-  }
+  private scopeMap: WeakMap<Node, Scope> = new WeakMap();
 
   constructor(ast: Node) {
-    this.ast = ast;
-    this.root = this.initRootScope();
-    this.currentScope = this.root;
+    this._ast = ast;
+    this._root = this.initRootScope();
+    this.currentScope = this._root;
 
     this.parse();
+    this.currentScope = this._root; // reset to root after parse
+  }
+
+  get root() {
+    return this._root;
+  }
+
+  get ast() {
+    return this._ast;
   }
 
   /**
@@ -82,12 +87,14 @@ export class ScopeAnalyzer {
   private initRootScope() {
     const root: Scope = {
       type: 'program',
-      node: this.ast,
+      node: this._ast,
       nodeExtra: {},
       variables: [],
       children: [],
       parent: null,
     };
+
+    this.scopeMap.set(this._ast, root);
 
     return root;
   }
@@ -120,6 +127,8 @@ export class ScopeAnalyzer {
       parent: this.currentScope,
     };
 
+    this.scopeMap.set(node, newScope);
+
     this.currentScope.children.push(newScope);
     this.currentScope = newScope;
   }
@@ -140,7 +149,7 @@ export class ScopeAnalyzer {
     /**
      * 遍历所有节点
      */
-    traverse(this.ast, {
+    traverse(this._ast, {
       BlockStatement: {
         enter: (path) => {
           // 匹配额外信息的块作用域
@@ -369,18 +378,14 @@ export class ScopeAnalyzer {
     }
   }
 
-  static toJSON(scope: Scope) {
-    return ScopeAnalyzer.scopeToJSON(scope);
-  }
-
   /**
    * transform to non-curly json-object
    */
   toJSON(): ScopeJSON {
-    return ScopeAnalyzer.scopeToJSON(this.root);
+    return this.scopeToJSON(this._root);
   }
 
-  private static scopeToJSON(scope: Scope): ScopeJSON {
+  private scopeToJSON(scope: Scope): ScopeJSON {
     const { type, nodeExtra, variables, children } = scope;
     const childrenJSON = children.map((child) => this.scopeToJSON(child));
 

@@ -8,7 +8,7 @@ import {
 } from 'vscode-languageserver/node';
 
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { scopeToLens, throttledAnalyzeCode } from './analyzer';
+import { debouncedAnalyzeCode } from './analyzer';
 
 export const createEsSniperServer = () => {
   console.log('[EsSniperServer] create start');
@@ -39,6 +39,8 @@ export const createEsSniperServer = () => {
     console.log('[EsSniperServer] connection.onInitialized');
   });
 
+  let _analyzeId = 0;
+
   /**
    * 分析代码
    * 1. 作用域信息
@@ -53,13 +55,19 @@ export const createEsSniperServer = () => {
     const { document } = event;
     const content = document.getText();
 
-    const result = throttledAnalyzeCode(content);
+    const id = _analyzeId++;
+
+    console.log(`[analyze] start, id=${id}`);
+
+    const result = debouncedAnalyzeCode(content);
     if (!result) return; // throttle return
 
-    const scopeLens = scopeToLens(result.scope);
-    connection.sendNotification('scopeLens', {
+    console.log(`[analyze] result, id=${id}`, result);
+
+    connection.sendNotification('analyze', {
       documentUri: document.uri,
-      scopeLens,
+      scopeLens: result.scopeLens,
+      consumptionLens: result.consumptionLens,
     });
   };
 

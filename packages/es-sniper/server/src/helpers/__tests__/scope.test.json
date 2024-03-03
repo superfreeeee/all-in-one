@@ -23,15 +23,15 @@
       "source": "import"
     },
     {
-      "id": "parser",
-      "source": "import"
-    },
-    {
       "id": "ScopeAnalyzer",
       "source": "import"
     },
     {
       "id": "ScopeVariable",
+      "source": "import"
+    },
+    {
+      "id": "parseCode",
       "source": "import"
     },
     {
@@ -60,6 +60,10 @@
         },
         {
           "id": "ast",
+          "source": "local"
+        },
+        {
+          "id": "scopeAnalyzer",
           "source": "local"
         },
         {
@@ -274,7 +278,7 @@
           },
           "variables": [
             {
-              "id": "scope",
+              "id": "scopeAnalyzer",
               "source": "local"
             },
             {

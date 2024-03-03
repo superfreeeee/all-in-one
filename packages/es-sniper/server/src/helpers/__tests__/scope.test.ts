@@ -2,20 +2,23 @@ import { describe, expect, test } from 'vitest';
 
 import path from 'path';
 import fs from 'fs';
-import parser from '@babel/parser';
-import { ScopeAnalyzer, ScopeVariable } from '../helpers/scope';
+import { ScopeAnalyzer, ScopeVariable } from '../scope-impl';
+import { parseCode } from '../compiler';
 
 const parseFile = (filePath: string) => {
   const code = fs.readFileSync(filePath).toString();
 
-  const ast = parser.parse(code, {
-    sourceType: 'unambiguous',
-    plugins: ['typescript', 'jsx'],
-  });
+  const ast = parseCode(code);
 
-  const scope = ScopeAnalyzer.parse(ast);
+  const scopeAnalyzer = new ScopeAnalyzer(ast);
+  const scope = scopeAnalyzer.root;
 
-  return { code, ast, scope };
+  return {
+    code,
+    ast,
+    scope,
+    scopeAnalyzer,
+  };
 };
 
 type VarCheckTestOption = {
@@ -38,23 +41,23 @@ describe('global scope tests', () => {
   // 全局變量測試用例
   createVarCheckTests([
     {
-      source: path.resolve(__dirname, './scope-case/global-var.ts'),
+      source: path.resolve(__dirname, './use-cases/global-var.ts'),
       variables: [{ id: 'localVar', source: 'local' }],
     },
     {
-      source: path.resolve(__dirname, './scope-case/global-func.ts'),
+      source: path.resolve(__dirname, './use-cases/global-func.ts'),
       variables: [{ id: 'localFunc', source: 'local' }],
     },
     {
-      source: path.resolve(__dirname, './scope-case/global-func-arrow.ts'),
+      source: path.resolve(__dirname, './use-cases/global-func-arrow.ts'),
       variables: [{ id: 'localFunc', source: 'local' }],
     },
     {
-      source: path.resolve(__dirname, './scope-case/global-func-arrow-no-body.ts'),
+      source: path.resolve(__dirname, './use-cases/global-func-arrow-no-body.ts'),
       variables: [{ id: 'localFunc', source: 'local' }],
     },
     {
-      source: path.resolve(__dirname, './scope-case/global-var-import.ts'),
+      source: path.resolve(__dirname, './use-cases/global-var-import.ts'),
       variables: [
         { source: 'import', id: 'addDefault' },
         { source: 'import', id: 'utils' },
@@ -67,13 +70,13 @@ describe('global scope tests', () => {
 });
 
 describe('local scope tests', () => {
-  const TEST_CASE_LOCAL_1 = path.resolve(__dirname, './scope-case/local-var.ts');
-  const TEST_CASE_LOCAL_2 = path.resolve(__dirname, './scope-case/local-param-func.ts');
-  const TEST_CASE_LOCAL_3 = path.resolve(__dirname, './scope-case/local-param-func-arrow.ts');
-  const TEST_CASE_LOCAL_4 = path.resolve(__dirname, './scope-case/local-param-func-arrow-no-body.ts');
-  const TEST_CASE_LOCAL_5 = path.resolve(__dirname, './scope-case/local-param-func-complex.ts');
-  const TEST_CASE_LOCAL_6 = path.resolve(__dirname, './scope-case/local-var-for.ts');
-  const TEST_CASE_LOCAL_7 = path.resolve(__dirname, './scope-case/local-var-for-x.ts');
+  const TEST_CASE_LOCAL_1 = path.resolve(__dirname, './use-cases/local-var.ts');
+  const TEST_CASE_LOCAL_2 = path.resolve(__dirname, './use-cases/local-param-func.ts');
+  const TEST_CASE_LOCAL_3 = path.resolve(__dirname, './use-cases/local-param-func-arrow.ts');
+  const TEST_CASE_LOCAL_4 = path.resolve(__dirname, './use-cases/local-param-func-arrow-no-body.ts');
+  const TEST_CASE_LOCAL_5 = path.resolve(__dirname, './use-cases/local-param-func-complex.ts');
+  const TEST_CASE_LOCAL_6 = path.resolve(__dirname, './use-cases/local-var-for.ts');
+  const TEST_CASE_LOCAL_7 = path.resolve(__dirname, './use-cases/local-var-for-x.ts');
 
   // 局部變量測試用例
   test('local-var', () => {
@@ -198,8 +201,8 @@ describe('toJSON test', () => {
   const TEST_CASE_SELF = path.resolve(__dirname, './scope.test.ts');
 
   test('self toJSON', () => {
-    const { scope } = parseFile(TEST_CASE_SELF);
-    const json = ScopeAnalyzer.toJSON(scope);
+    const { scopeAnalyzer } = parseFile(TEST_CASE_SELF);
+    const json = scopeAnalyzer.toJSON();
     fs.writeFileSync(path.resolve(__dirname, 'scope.test.json'), JSON.stringify(json, null, 2));
   });
 });

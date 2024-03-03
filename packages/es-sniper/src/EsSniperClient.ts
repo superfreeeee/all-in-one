@@ -6,7 +6,11 @@ import {
   ServerOptions,
   TransportKind,
 } from 'vscode-languageclient/node';
-import { EsSniperCodeLensProvider, ScopeLen } from './EsSniperCodeLensProvider';
+import {
+  ConsumptionLen,
+  EsSniperCodeLensProvider,
+  ScopeLen,
+} from './EsSniperCodeLensProvider';
 
 const SERVER_PATH = path.join('server/dist/index.cjs');
 
@@ -16,6 +20,12 @@ const SUPPORT_LANGUAGES = [
   'typescript',
   'typescriptreact',
 ];
+
+type EsSniperServerAnalyzeEvent = {
+  documentUri: string;
+  scopeLens: ScopeLen[];
+  consumptionLens: ConsumptionLen[];
+};
 
 export class EsSniperClient {
   private context: ExtensionContext;
@@ -61,13 +71,10 @@ export class EsSniperClient {
       clientOptions,
     );
 
-    client.onNotification(
-      'scopeLens',
-      (event: { documentUri: string; scopeLens: ScopeLen[] }) => {
-        console.log('[EsSniperClient] onNotification.scopeLens:', event);
-        this.handleScopeLens(event);
-      },
-    );
+    client.onNotification('analyze', (event: EsSniperServerAnalyzeEvent) => {
+      console.log('[EsSniperClient] onNotification.analyze:', event);
+      this.handleAnalyze(event);
+    });
 
     return client;
   }
@@ -86,11 +93,8 @@ export class EsSniperClient {
    * EsSniperClient Notification: scopeLens 事件
    * @param event
    */
-  private handleScopeLens(event: {
-    documentUri: string;
-    scopeLens: ScopeLen[];
-  }) {
-    const { documentUri, scopeLens } = event;
+  private handleAnalyze(event: EsSniperServerAnalyzeEvent) {
+    const { documentUri, scopeLens, consumptionLens } = event;
 
     const targetDocument = workspace.textDocuments.find((document) => {
       return document.uri.toString() === documentUri;
@@ -105,6 +109,10 @@ export class EsSniperClient {
     }
 
     this.codeLensProvider.updateScopeLens(targetDocument, scopeLens);
+    this.codeLensProvider.updateConsumptionLens(
+      targetDocument,
+      consumptionLens,
+    );
   }
 
   start() {

@@ -21,6 +21,7 @@ import {
   type LVal,
   type PatternLike,
   type BlockStatement,
+  isExpression,
 } from '@babel/types';
 
 export type ScopeVariable = {
@@ -42,6 +43,8 @@ export type Scope = {
 export type ScopeJSON = Pick<Scope, 'type' | 'nodeExtra' | 'variables'> & {
   children: ScopeJSON[];
 };
+
+export class ScopeAnalyzerError extends Error {}
 
 /**
  * 作用域解析器
@@ -124,40 +127,15 @@ export class ScopeAnalyzer {
    * 离开作用域
    */
   private exitScope() {
-    if (!this.currentScope.parent) {
-      console.error('Unexpected exit global');
-      return;
+    if (this.currentScope.parent) {
+      this.currentScope = this.currentScope.parent;
     }
-
-    this.currentScope = this.currentScope.parent;
   }
 
   /**
    * 解析作用域
    */
   private parse(): void {
-    /**
-     * 1. Statement
-     * 2. ForStatement => init
-     * 3. ForXStatement => left
-     *
-     * 一定都是 local
-     * @param variableDeclaration
-     */
-    const parseVariableDeclaration = (
-      variableDeclaration: VariableDeclaration,
-    ) => {
-      for (const declaration of variableDeclaration.declarations) {
-        const id = declaration.id;
-        if (isIdentifier(id) || isRestElement(id) || isPattern(id)) {
-          this.parseVariable(id, 'local');
-          continue;
-        }
-
-        console.error(`Unexpect type in VariableDeclarator: ${id.type}`);
-      }
-    };
-
     /**
      * 遍历所有节点
      */
@@ -171,21 +149,29 @@ export class ScopeAnalyzer {
 
           const parent = path.parent;
           // 3. 普通块
-          if (parent.type !== 'BlockStatement') {
-            console.log('> parent.type', parent.type);
-          }
+          // if (parent.type !== 'BlockStatement') {
+          //   console.log('> parent.type', parent.type);
+          // }
           this.enterScope('block', path.node, { parentType: parent.type });
         },
         exit: () => {
           this.exitScope();
         },
       },
+      // 特别处理 () => <expression>，没有 BlockStatement 但还是存在局部变量
+      ArrowFunctionExpression: (path) => {
+        if (isExpression(path.node.body)) {
+          this.enterScope('function', path.node);
+          this.parseFunctionParams(path.node.params);
+          this.exitScope();
+        }
+      },
       /**
        * 变量声明
        * @param path
        */
       VariableDeclaration: (path) => {
-        parseVariableDeclaration(path.node);
+        this.parseVariableDeclaration(path.node);
       },
       /**
        * 函数声明
@@ -221,14 +207,7 @@ export class ScopeAnalyzer {
 
     // 2. RestElement => 剩余参数
     if (isRestElement(node)) {
-      if (isIdentifier(node.argument)) {
-        this.currentScope.variables.push({
-          id: node.argument.name,
-          source,
-        });
-      } else {
-        console.error(`Unexpect type in RestElement: ${node.argument.type}`);
-      }
+      this.parseLVal(node.argument, source);
       return;
     }
 
@@ -240,9 +219,8 @@ export class ScopeAnalyzer {
         isArrayPattern(node.left)
       ) {
         this.parseVariable(node.left, source);
-      } else {
-        console.error(`Unexpect type in AssignmentPattern: ${node.left.type}`);
       }
+      // ? ignore other expression
       return;
     }
 
@@ -286,10 +264,7 @@ export class ScopeAnalyzer {
   private parseLVal(node: LVal, source: ScopeVariable['source']) {
     if (isIdentifier(node) || isRestElement(node) || isPattern(node)) {
       this.parseVariable(node, source);
-      return;
     }
-
-    console.error(`Unexpect type in parseLVal: ${node.type}`);
   }
 
   /**
@@ -317,13 +292,7 @@ export class ScopeAnalyzer {
    */
   private parseVariableDeclaration(variableDeclaration: VariableDeclaration) {
     for (const declaration of variableDeclaration.declarations) {
-      const id = declaration.id;
-      if (isIdentifier(id) || isRestElement(id) || isPattern(id)) {
-        this.parseVariable(id, 'local');
-        continue;
-      }
-
-      console.error(`Unexpect type in VariableDeclarator: ${id.type}`);
+      this.parseLVal(declaration.id, 'local');
     }
   }
 
@@ -338,6 +307,7 @@ export class ScopeAnalyzer {
     const parent = path.parent;
 
     // 1. ArrowFunctionExpression => 箭头函数表达式
+    // () => {}
     if (isArrowFunctionExpression(parent)) {
       this.enterScope('function', parent);
 
@@ -370,24 +340,26 @@ export class ScopeAnalyzer {
 
       if (isVariableDeclaration(parent.left)) {
         this.parseVariableDeclaration(parent.left);
-      } else {
-        this.parseLVal(parent.left, 'local');
       }
-
+      // ignore LVal in for-x
       return true;
     }
 
     return false;
   }
 
+  static toJSON(scope: Scope) {
+    return ScopeAnalyzer.scopeToJSON(scope);
+  }
+
   /**
    * transform to non-curly json-object
    */
   toJSON(): ScopeJSON {
-    return this.scopeToJSON(this.root);
+    return ScopeAnalyzer.scopeToJSON(this.root);
   }
 
-  private scopeToJSON(scope: Scope): ScopeJSON {
+  private static scopeToJSON(scope: Scope): ScopeJSON {
     const { type, nodeExtra, variables, children } = scope;
     const childrenJSON = children.map((child) => this.scopeToJSON(child));
 

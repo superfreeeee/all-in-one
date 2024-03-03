@@ -1,0 +1,275 @@
+{
+  "type": "program",
+  "nodeExtra": {},
+  "variables": [
+    {
+      "id": "parseFile",
+      "source": "local"
+    }
+  ],
+  "children": [
+    {
+      "type": "function",
+      "nodeExtra": {
+        "type": "ArrowFunctionExpression"
+      },
+      "variables": [
+        {
+          "id": "filePath",
+          "source": "param"
+        },
+        {
+          "id": "code",
+          "source": "local"
+        },
+        {
+          "id": "ast",
+          "source": "local"
+        },
+        {
+          "id": "scope",
+          "source": "local"
+        }
+      ],
+      "children": []
+    },
+    {
+      "type": "function",
+      "nodeExtra": {
+        "type": "ArrowFunctionExpression"
+      },
+      "variables": [
+        {
+          "id": "TEST_CASE_GLOBAL_1",
+          "source": "local"
+        },
+        {
+          "id": "TEST_CASE_GLOBAL_2",
+          "source": "local"
+        },
+        {
+          "id": "TEST_CASE_GLOBAL_3",
+          "source": "local"
+        },
+        {
+          "id": "TEST_CASE_GLOBAL_4",
+          "source": "local"
+        }
+      ],
+      "children": [
+        {
+          "type": "function",
+          "nodeExtra": {
+            "type": "ArrowFunctionExpression"
+          },
+          "variables": [
+            {
+              "id": "scope",
+              "source": "local"
+            }
+          ],
+          "children": []
+        },
+        {
+          "type": "function",
+          "nodeExtra": {
+            "type": "ArrowFunctionExpression"
+          },
+          "variables": [
+            {
+              "id": "scope",
+              "source": "local"
+            }
+          ],
+          "children": []
+        },
+        {
+          "type": "function",
+          "nodeExtra": {
+            "type": "ArrowFunctionExpression"
+          },
+          "variables": [
+            {
+              "id": "scope",
+              "source": "local"
+            }
+          ],
+          "children": []
+        },
+        {
+          "type": "function",
+          "nodeExtra": {
+            "type": "ArrowFunctionExpression"
+          },
+          "variables": [
+            {
+              "id": "scope",
+              "source": "local"
+            }
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "nodeExtra": {
+        "type": "ArrowFunctionExpression"
+      },
+      "variables": [
+        {
+          "id": "TEST_CASE_LOCAL_1",
+          "source": "local"
+        },
+        {
+          "id": "TEST_CASE_LOCAL_2",
+          "source": "local"
+        },
+        {
+          "id": "TEST_CASE_LOCAL_3",
+          "source": "local"
+        },
+        {
+          "id": "TEST_CASE_LOCAL_4",
+          "source": "local"
+        },
+        {
+          "id": "TEST_CASE_LOCAL_5",
+          "source": "local"
+        },
+        {
+          "id": "TEST_CASE_LOCAL_6",
+          "source": "local"
+        },
+        {
+          "id": "TEST_CASE_LOCAL_7",
+          "source": "local"
+        }
+      ],
+      "children": [
+        {
+          "type": "function",
+          "nodeExtra": {
+            "type": "ArrowFunctionExpression"
+          },
+          "variables": [
+            {
+              "id": "scope",
+              "source": "local"
+            }
+          ],
+          "children": []
+        },
+        {
+          "type": "function",
+          "nodeExtra": {
+            "type": "ArrowFunctionExpression"
+          },
+          "variables": [
+            {
+              "id": "scope",
+              "source": "local"
+            }
+          ],
+          "children": []
+        },
+        {
+          "type": "function",
+          "nodeExtra": {
+            "type": "ArrowFunctionExpression"
+          },
+          "variables": [
+            {
+              "id": "scope",
+              "source": "local"
+            }
+          ],
+          "children": []
+        },
+        {
+          "type": "function",
+          "nodeExtra": {
+            "type": "ArrowFunctionExpression"
+          },
+          "variables": [
+            {
+              "id": "scope",
+              "source": "local"
+            }
+          ],
+          "children": []
+        },
+        {
+          "type": "function",
+          "nodeExtra": {
+            "type": "ArrowFunctionExpression"
+          },
+          "variables": [
+            {
+              "id": "scope",
+              "source": "local"
+            }
+          ],
+          "children": []
+        },
+        {
+          "type": "function",
+          "nodeExtra": {
+            "type": "ArrowFunctionExpression"
+          },
+          "variables": [
+            {
+              "id": "scope",
+              "source": "local"
+            }
+          ],
+          "children": []
+        },
+        {
+          "type": "function",
+          "nodeExtra": {
+            "type": "ArrowFunctionExpression"
+          },
+          "variables": [
+            {
+              "id": "scope",
+              "source": "local"
+            }
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "nodeExtra": {
+        "type": "ArrowFunctionExpression"
+      },
+      "variables": [
+        {
+          "id": "TEST_CASE_SELF",
+          "source": "local"
+        }
+      ],
+      "children": [
+        {
+          "type": "function",
+          "nodeExtra": {
+            "type": "ArrowFunctionExpression"
+          },
+          "variables": [
+            {
+              "id": "scope",
+              "source": "local"
+            },
+            {
+              "id": "json",
+              "source": "local"
+            }
+          ],
+          "children": []
+        }
+      ]
+    }
+  ]
+}

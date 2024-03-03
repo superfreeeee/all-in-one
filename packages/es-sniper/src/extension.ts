@@ -8,7 +8,7 @@ function test(context: vscode.ExtensionContext) {}
 let client: EsSniperClient | undefined;
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log('es-sniper is activated');
+  console.log('[es-sniper] activate');
 
   test(context);
 
@@ -22,5 +22,6 @@ export function activate(context: vscode.ExtensionContext) {
 
 // This method is called when your extension is deactivated
 export function deactivate() {
+  console.log('[es-sniper] deactivate');
   client?.stop();
 }

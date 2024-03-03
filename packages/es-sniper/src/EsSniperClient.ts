@@ -29,7 +29,7 @@ export class EsSniperClient {
   }
 
   private initClient() {
-    console.log('[EsSniperClient.initClient] start');
+    console.log('[EsSniperClient] initClient: start');
 
     const serverModule = this.context.asAbsolutePath(SERVER_PATH);
 
@@ -48,7 +48,7 @@ export class EsSniperClient {
       // },
     };
 
-    console.log('[EsSniperClient.initClient] options', {
+    console.log('[EsSniperClient] initClient: options', {
       serverModule,
       serverOptions,
       clientOptions,
@@ -64,7 +64,7 @@ export class EsSniperClient {
     client.onNotification(
       'scopeLens',
       (event: { documentUri: string; scopeLens: ScopeLen[] }) => {
-        console.log('[EsSniperClient] scopeLens', event);
+        console.log('[EsSniperClient] onNotification.scopeLens:', event);
         this.handleScopeLens(event);
       },
     );

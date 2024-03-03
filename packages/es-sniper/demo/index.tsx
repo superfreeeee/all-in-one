@@ -15,6 +15,7 @@ export const Counter = () => {
       <div>count: {count}</div>
       <button onClick={increment}>increment</button>
       <button onClick={(event) => setCount(0)}>reset</button>
+      <button onClick={() => undefined}>reset</button>
     </div>
   );
 };

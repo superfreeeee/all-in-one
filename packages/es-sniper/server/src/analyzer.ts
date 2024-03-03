@@ -9,20 +9,28 @@ import { Scope, ScopeAnalyzer } from './helpers/scope';
  * @returns
  */
 const analyzeCode = (code: string) => {
-  console.log('[parseCode] active');
+  console.log('[analyzeCode] start');
 
-  const ast = parser.parse(code, {
-    sourceType: 'unambiguous',
-    plugins: ['typescript', 'jsx'],
-  });
+  try {
+    const ast = parser.parse(code, {
+      sourceType: 'unambiguous',
+      plugins: ['typescript', 'jsx'],
+    });
+    const scope = ScopeAnalyzer.parse(ast);
 
-  const scope = ScopeAnalyzer.parse(ast);
-  console.log('[parseCode] scope', scope);
+    const scopeLens = scopeToLens(scope);
 
-  const scopeLens = scopeToLens(scope);
-  console.log('[parseCode] scopeLens', scope);
+    console.log('[analyzeCode] result', {
+      ast,
+      scope,
+      scopeLens,
+    });
 
-  return { ast, scope, scopeLens };
+    return { ast, scope, scopeLens };
+  } catch (error) {
+    console.error('[analyzeCode] error', error);
+    return undefined;
+  }
 };
 
 export const throttledAnalyzeCode = throttle(analyzeCode, 2000);

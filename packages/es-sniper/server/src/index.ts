@@ -1,5 +1,5 @@
-import { createServerConnection } from './server';
+import { createEsSniperServer } from './EsSniperServer';
 
-const connection = createServerConnection();
+const connection = createEsSniperServer();
 
 connection.listen();

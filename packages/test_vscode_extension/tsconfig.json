@@ -6,6 +6,8 @@
     "sourceMap": true,
     "rootDir": "src",
     "allowJs": true,
+    "noImplicitAny": false,
+    "experimentalDecorators": true,
     "strict": true
     /* enable all strict type-checking options */
     /* Additional Checks */

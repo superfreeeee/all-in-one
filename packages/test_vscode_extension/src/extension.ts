@@ -1,34 +1,38 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+import { ExtensionContext, commands, window } from 'vscode';
+import { Container } from './container/Container';
+import { HelloWorldCommand } from './commands/HelloWorld';
+import { Commands } from './commands/common/constants';
+import { TextEditorState } from './commands/TextEditorState';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
-  // Use the console to output diagnostic information (console.log) and errors (console.error)
-  // This line of code will only be executed once when your extension is activated
+export function activate(context: ExtensionContext) {
   console.log(
-    'Congratulations, your extension "test_vscode_extension" is now active!',
+    'Congratulations, your extension "test-vscode-extension" is now active!',
   );
 
-  // The command has been defined in the package.json file
-  // Now provide the implementation of the command with registerCommand
-  // The commandId parameter must match the command field in package.json
-  const disposable = vscode.commands.registerCommand(
-    'test_vscode_extension.helloWorld',
-    () => {
-      // The code you place here will be executed every time your command is executed
-      // Display a message box to the user
-      vscode.window.showInformationMessage(
-        'Hello World from test_vscode_extension!',
-      );
-    },
-  );
+  // 官方脚手架 demo
+  // context.subscriptions.push(
+  //   commands.registerCommand('test-vscode-extension.helloWorld', () => {
+  //     window.showInformationMessage('Hello World from test-vscode-extension!');
+  //   }),
+  // );
 
-  context.subscriptions.push(disposable);
+  /**
+   * 全局实例
+   * 1. 代理注册 commands
+   */
+  const container = Container.create(context);
+  // Commands 代理 commands.registerCommand
+  container.registerCommand(new HelloWorldCommand());
+  container.registerCommand(new TextEditorState());
+  // container.start 代理  context.subscriptions
+  container.start();
 
-  // vscode.c
+  // other
+  setTimeout(() => {
+    // 触发命令 => commands.executeCommand
+    commands.executeCommand(Commands.HelloWorld);
+    // commands.executeCommand('editor.action.addCommentLine');
+  }, 3000);
 }
 
-// This method is called when your extension is deactivated
 export function deactivate() {}

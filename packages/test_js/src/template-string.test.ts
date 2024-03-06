@@ -1,3 +1,5 @@
+import { test } from 'vitest';
+
 test('tagged', () => {
   const func = (strs: TemplateStringsArray, ...values: unknown[]) => {
     console.log(strs, ...values);

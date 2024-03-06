@@ -1,3 +1,5 @@
+import { test, expect } from 'vitest';
+
 test('modify when iterate set', () => {
   let max = 0;
   let next = 4;

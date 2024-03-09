@@ -1,0 +1,3 @@
+[submodule "packages/es-sniper"]
+	path = packages/es-sniper
+	url = https://github.com/superfreeeee/es-sniper

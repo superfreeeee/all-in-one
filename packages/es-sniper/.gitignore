@@ -1,7 +1,0 @@
-node_modules
-.vscode-test
-
-/dist
-/server/dist
-/server/coverage
-

@@ -1,0 +1,20 @@
+{
+  "name": "test_mysql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:todo": "node src/todo.js",
+    "dev:counter": "node src/counter.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "@types/mysql": "^2.15.26",
+    "@types/node": "^20.11.28"
+  }
+}

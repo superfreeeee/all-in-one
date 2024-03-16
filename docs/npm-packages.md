@@ -10,7 +10,7 @@ Home Page: https://www.npmjs.com/
 | vue3                                  <br/> https://cn.vuejs.org/                                 | ui-framework     |                                  | production           |                 |
 | angular                               <br/>                                                       | ui-framework     |                                  | production           |                 |
 | svelte                                <br/> https://github.com/sveltejs/svelte                    | ui-framework     |                                  | production           |                 |
-| solid                                 <br/>                                                       | ui-framework     |                                  | production           |                 |
+| solid                                 <br/> https://docs.solidjs.com/                             | ui-framework     |                                  | production           |                 |
 |                                                                                                   |                  |                                  |                      |                 |
 | electron                              <br/> https://github.com/electron/electron                  | desktop          | Cross-platform desktop framework | production           | electron        |
 | electron-builder                      <br/> https://github.com/electron-userland/electron-builder | desktop          | Builder for electron             | production           | electron        |

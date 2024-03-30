@@ -51,7 +51,7 @@ use test_db;
 
 ```sql
 CREATE TABLE todo (
-  id INT AUTO_INCREMENT PRIMARY KEY,
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(50) NOT NULL,
   description VARCHAR(200),
   create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -65,6 +65,8 @@ CREATE TABLE todo (
 INSERT INTO todo (title, description) VALUES ('测试 todo 1', '这是一个测试任务，需要完成项目的所有任务');
 INSERT INTO todo (title, description) VALUES ('测试 todo 2', '这是一个测试任务，需要完成项目的所有任务');
 INSERT INTO todo (title, description) VALUES ('测试 todo 3', '这是一个测试任务，需要完成项目的所有任务');
+
+INSERT INTO todo (title, description) VALUES ('test todo title', 'test desc');
 
 UPDATE todo SET description = 'field modified' WHERE id = 2;
 ```

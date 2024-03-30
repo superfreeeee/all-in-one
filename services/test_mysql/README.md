@@ -1,6 +1,18 @@
 # MySQL 连接测试
 
-# 1. Docker 环境 MySQL 准备 + 启动
+# 参考资料
+
+- mysql 使用
+
+https://www.cnblogs.com/davis12/p/16357728.html
+
+- go mysql driver
+
+https://github.com/go-sql-driver/mysql
+
+# 开发环境搭建
+
+## 1. Docker 环境 MySQL 准备 + 启动
 
 - 拉镜像
 
@@ -10,12 +22,12 @@ docker pull mysql
 
 - `docker-compose.yml`
 
-参考 [](./docker-compose.yaml)
+参考 [](./db/docker-compose.yaml)
 
 对应原始启动命令如下
 
 ```sh
-docker run --rm --name test_mysql_db_1 -e MYSQL_ROOT_PASSWORD=123456789 -d mysql
+docker run --rm --name db_db_1 -e MYSQL_ROOT_PASSWORD=123456789 -d mysql
 ```
 
 - 启动 docker 容器
@@ -31,12 +43,12 @@ docker-compose up -d
 
 ```sh
 # 登陆同时 use 创建数据表
-docker exec -it test_mysql_db_1 env LANG=C.UTF-8 mysql -u dev -p test_mysql
+docker exec -it db_db_1 env LANG=C.UTF-8 mysql -u dev -p test_mysql
 # 只登陆
-docker exec -it test_mysql_db_1 env LANG=C.UTF-8 mysql -u dev -p
+docker exec -it db_db_1 env LANG=C.UTF-8 mysql -u dev -p
 ```
 
-# 2. 建立数据表
+## 2. 建立数据表
 
 - 建立数据库
 
@@ -69,14 +81,4 @@ INSERT INTO todo (title, description) VALUES ('测试 todo 3', '这是一个测�
 INSERT INTO todo (title, description) VALUES ('test todo title', 'test desc');
 
 UPDATE todo SET description = 'field modified' WHERE id = 2;
-```
-
-# 3. 基于 Node.js 环境 连接 MySQL 数据库操作
-
-- todo 包含了简单的查找 & 插入数据的示例
-- counter 包含更复杂的查询场景 + 事务处理的例子
-
-```sh
-pnpm dev:todo
-pnpm dev:counter
 ```

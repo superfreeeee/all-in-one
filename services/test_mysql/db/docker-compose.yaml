@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:latest
+    # nodejs mysql 不支持 caching_sha2_password
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    restart: always
+
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456789
+      MYSQL_DATABASE: test_go
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: 123456789
+
+    ports:
+      - "3306:3306"
+
+    # 本地宗卷 : 容器内宗卷
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql_data:/var/lib/mysql  # 初始化脚本
+
+volumes:
+  mysql_data:

@@ -5,6 +5,7 @@
 - mysql 使用
 
 https://www.cnblogs.com/davis12/p/16357728.html
+https://ithelp.ithome.com.tw/articles/10243865
 
 - go mysql driver
 

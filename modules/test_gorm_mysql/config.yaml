@@ -1,0 +1,4 @@
+database:
+  username: dev
+  password: 123456789
+  dbname: test_gorm_mysql

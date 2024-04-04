@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"math/rand"
 
-	"example.com/test_go/test_alloc"
-	"example.com/test_go/test_struct"
 	"example.com/test_go/tutor"
 	"example.com/test_lib"
 )
@@ -16,6 +14,4 @@ func main() {
 	test_lib.Hello("Superfree")
 
 	tutor.TutorStart()
-	test_struct.TestStruct()
-	test_alloc.TestAlloc()
 }

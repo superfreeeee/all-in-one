@@ -1,6 +1,11 @@
 package tutor
 
-import "fmt"
+import (
+	"fmt"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 // 函数签名
 func add(x int, y int) int {
@@ -23,14 +28,20 @@ func double(x int) (res int) {
 	return
 }
 
-func DemoFunction() {
-	fmt.Println()
-	fmt.Println("> DemoFunction")
+func TestFunction(t *testing.T) {
 	fmt.Println("1 + 2 =", add(1, 2))
 	fmt.Println("1 - 2 =", sub(1, 2))
 
-	x, y := swap(1, 2)
+	assert.Equal(t, add(1, 2), 3)
+	assert.Equal(t, sub(1, 2), -1)
+
+	x, y := 1, 2
+	assert.Equal(t, []int{x, y}, []int{1, 2})
+
+	x, y = swap(x, y)
 	fmt.Println("x =", x, ", y =", y)
+	assert.Equal(t, []int{x, y}, []int{2, 1})
 
 	fmt.Println("double(1) =", double(1))
+	assert.Equal(t, double(1), 2)
 }

@@ -14,3 +14,22 @@ post:
 
 paramId:
 	curl -X GET localhost:8999/param/111
+
+test-albums:
+	@echo "===================="
+	@echo "> GetAlbums"
+	curl http://localhost:8080/albums
+
+	@echo "\n"
+	@echo "===================="
+	@echo "> PostAlbums"
+	curl http://localhost:8080/albums \
+    --include \
+    --header "Content-Type: application/json" \
+    --request "POST" \
+    --data '{"id": "4","title": "The Modern Sound of Betty Carter","artist": "Betty Carter","price": 49.99}'
+
+	@echo "\n"
+	@echo "===================="
+	@echo "> GetAlbumByID"
+	curl http://localhost:8080/albums/2

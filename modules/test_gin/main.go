@@ -9,6 +9,7 @@ import (
 	"os/signal"
 	"time"
 
+	"example.com/test_gin/tutorial"
 	"github.com/gin-gonic/gin"
 )
 
@@ -40,6 +41,12 @@ func main() {
 	// 重定向
 	// 访问 http://localhost:8999/redirect
 	router.GET("/redirect", redirect)
+
+	// RESTful web server
+	// https://go.dev/doc/tutorial/web-service-gin
+	router.GET("/albums", tutorial.GetAlbums)
+	router.GET("/albums/:id", tutorial.GetAlbumByID)
+	router.POST("/albums", tutorial.PostAlbums)
 
 	// createServer(router)
 	// 默认监听 0.0.0.0:8080 上启动服务

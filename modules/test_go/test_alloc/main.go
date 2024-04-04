@@ -1,21 +1,22 @@
 package test_alloc
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type MyStruct struct {
 	data [1024]byte
 }
 
-func TestAlloc() {
-	// fmt.Println("> TestAlloc")
-	// testAllocStruct()
-	// testAllocPrimitive()
+func createStruct() *MyStruct {
+	s := MyStruct{} // 在栈上分配 MyStruct 对象
+	return &s
 }
 
 /*
 测试内存分配是否逃逸 => 查看是在栈上还是堆上分配内存
 */
-func testAllocStruct() {
+func AllocStruct() {
 	// 1. 返回 *MyStruct => 移动到堆上
 	s := createStruct()
 
@@ -30,12 +31,7 @@ func testAllocStruct() {
 	// 不打印的时候 => 一直都存在在栈上
 }
 
-func createStruct() *MyStruct {
-	s := MyStruct{} // 在栈上分配 MyStruct 对象
-	return &s
-}
-
-func testAllocPrimitive() {
+func AllocPrimitive() {
 	x := getX()
 	fmt.Println(*x)
 	setX(x, 20)

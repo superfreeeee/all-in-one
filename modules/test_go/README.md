@@ -1,11 +1,19 @@
 # Golang 测试
 
+## Go 教程
+
+https://go.dev/tour/welcome/1
+
+```sh
+make test-tutor
+```
+
 ## 内存分配测试
 
 - 分析对象分配在栈上还是堆上
 
 ```sh
-go build -gcflags="-m" test_alloc/main.go
+make test-alloc
 ```
 
 ## 包引用

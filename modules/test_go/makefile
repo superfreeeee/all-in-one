@@ -10,6 +10,12 @@ test-alloc:
 test-tutor:
 	go test ./tutor/... -v
 
+# 模糊测试
+# -fuzz=Fuzz 指向 f.Fuzz
+# -fuzztime  指定运行时间
+test-fuzz:
+	go test ./test_fuzz -fuzz=Fuzz -fuzztime=10s
+
 bin: install
 	$(shell go list -f '{{.Target}}')
 

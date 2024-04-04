@@ -16,6 +16,14 @@ make test-tutor
 make test-alloc
 ```
 
+## 模糊测试
+
+基于 go-fuzz
+
+```sh
+make test-fuzz
+```
+
 ## 包引用
 
 - lib 包需要在根目录写一个 `lib.go` 或类似的，指定同名 package

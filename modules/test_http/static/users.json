@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "Superfree",
+    "extra": {
+      "age": 18
+    }
+  },
+  {
+    "id": 2,
+    "name": "Jimmy"
+  },
+  {
+    "id": 3,
+    "name": "John"
+  }
+]

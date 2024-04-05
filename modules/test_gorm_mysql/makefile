@@ -2,16 +2,16 @@
 
 # 前台启动
 start:
-	cd ../test_mysql && cd db && docker-compose up
+	cd ../test_mysql && make start
 
 # 后台启动
 startd:
-	cd ../test_mysql && cd db && docker-compose up -d
+	cd ../test_mysql && make startd
 
 # 停止后台
 stop:
-	cd ../test_mysql && cd db && docker-compose down
+	cd ../test_mysql && make stop
 
 # shell 访问
 login:
-	cd ../test_mysql && docker exec -it db_db_1 env LANG=C.UTF-8 mysql -u dev -p
+	cd ../test_mysql && make login

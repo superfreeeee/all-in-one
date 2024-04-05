@@ -14,4 +14,4 @@ stop:
 
 # shell 访问
 login:
-	docker exec -it db_db_1 env LANG=C.UTF-8 mysql -u dev -p
+	docker exec -it test_go_mysql env LANG=C.UTF-8 mysql -u dev -p

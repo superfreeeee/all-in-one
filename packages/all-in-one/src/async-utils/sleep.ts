@@ -3,9 +3,6 @@
  * @param delay ms
  * @returns
  */
-export const sleep = (delay: number): Promise<void> =>
-  new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, delay);
-  });
+export function sleep(delay: number): Promise<void> {
+  return new Promise<void>((resolve) => setTimeout(resolve, delay));
+}

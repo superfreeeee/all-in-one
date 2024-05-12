@@ -2,6 +2,7 @@ use std::fs;
 
 use yx_common::AnyError;
 
+#[test]
 fn read_dir_test() -> Result<(), AnyError> {
     println!("> read_dir_test");
     let dir = fs::read_dir(".")?;
@@ -33,8 +34,4 @@ fn read_dir_test() -> Result<(), AnyError> {
     }
 
     Ok(())
-}
-
-fn main() {
-    let _ = read_dir_test();
 }

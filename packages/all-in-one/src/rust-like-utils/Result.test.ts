@@ -1,28 +1,50 @@
-import Result from './Result';
+import { sleep } from '../async-utils/sleep';
+import { Result } from './Result';
 
 describe('Result test', () => {
-  test('ok test', () => {
-    const result = Result.ok(1);
-
+  test('Ok variant test', async () => {
+    const result = Result.Ok(1);
     expect(result.isOk).toBe(true);
-    expect(result.isError).toBe(false);
+    expect(result.isErr).toBe(false);
     expect(result.unwrap()).toBe(1);
+    expect(result.catch()).toBe(null);
+
+    let callbackNum = 0;
+
+    // okThen
+    expect(
+      result.okThen((num) => {
+        callbackNum += 1;
+        return num; // accidentally return
+      }),
+    ).toBe(true);
+    expect(callbackNum).toBe(1);
+
+    // asyncThen
+    const thenResult = result.okThen(async (num) => {
+      await sleep(10);
+      callbackNum += 1;
+    });
+    expect(thenResult).resolves.toEqual(true);
+    expect(callbackNum).toBe(1);
+
+    await thenResult;
+    expect(callbackNum).toBe(2);
   });
 
-  test('error test', () => {
-    class MyError extends Error {}
-
+  test('Err variant test', () => {
     const msg = 'my error';
-    const result = Result.error(new MyError(msg));
-
+    const error = new Error(msg);
+    const result = Result.Err(error);
     expect(result.isOk).toBe(false);
-    expect(result.isError).toBe(true);
-    expect(() => result.unwrap()).toThrowError(msg);
-  });
+    expect(result.isErr).toBe(true);
+    expect(() => result.unwrap()).toThrow(msg);
+    expect(result.catch()).toBe(error);
 
-  test('catch test', () => {
-    expect(Result.ok(1).catch()).toBe(null);
-    const error = new SyntaxError();
-    expect(Result.error(error).catch()).toBe(error);
+    expect(
+      result.okThen((res) => {
+        throw new Error('okThen should not be called');
+      }),
+    ).toBe(false);
   });
 });

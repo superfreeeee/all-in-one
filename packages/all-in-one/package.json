@@ -5,6 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "test": "jest -w 4",
+    "test:watch": "jest -w 4 --watch",
     "test:coverage": "UNSET_COVERAGE=true jest --coverage -w 4",
     "test:coverage:all": "jest --coverage -w 4",
     "typechecking": "tsc --noEmit"
